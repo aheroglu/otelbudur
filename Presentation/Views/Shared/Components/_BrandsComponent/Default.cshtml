@@ -1,0 +1,31 @@
+﻿@model List<Entity.Concrete.Partner>
+
+<div class="brand-area pat-50 pab-100">
+    <div class="container">
+        <div class="section-title center-text">
+            <h2 class="title"> Out Partners </h2>
+            <div class="section-title-line"></div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="global-slick-init attraction-slider slider-inner-margin" data-slidestoshow="3" data-infinite="true" data-arrows="false" data-dots="false" data-swipetoslide="true" data-autoplay="true" data-autoplayspeed="2500" data-prevarrow="<div class=&quot;prev-icon&quot;><i class=&quot;las la-angle-left&quot;></i></div>" data-nextarrow="<div class=&quot;next-icon&quot;><i class=&quot;las la-angle-right&quot;></i></div>" data-responsive="[{&quot;breakpoint&quot;: 1400,&quot;settings&quot;: {&quot;slidesToShow&quot;: 5}},{&quot;breakpoint&quot;: 1200,&quot;settings&quot;: {&quot;slidesToShow&quot;: 4}},{&quot;breakpoint&quot;: 992,&quot;settings&quot;: {&quot;slidesToShow&quot;: 3}},{&quot;breakpoint&quot;: 576, &quot;settings&quot;: {&quot;slidesToShow&quot;: 2} }]">
+                    @foreach (var x in Model)
+                    {
+                        <div class="single-brand">
+                            <a href="@x.DestinationUrl" target="_blank" rel="nofollow noreferrer" class="single-brand-thumb">
+                                @if (x.Image == "/Templates/main/assets/img/default-image.png")
+                                {
+                                    <img src="@x.Image" alt="brandLogo">
+                                }
+                                else
+                                {
+                                    <img src="/images/partner/@x.Image" alt="brandLogo">
+                                }
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

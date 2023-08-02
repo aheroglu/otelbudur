@@ -1,0 +1,43 @@
+﻿@model SendForAdminsViewModel
+
+@{
+    ViewData["Title"] = "SendForAdmins";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="dashboard-reservation">
+    <div class="single-reservation bg-white base-padding">
+        <h3 class="single-reservation-title text-center my-3"> Send Email For Admins </h3>
+        <div class="custom--form dashboard-form">
+            <form method="post">
+                <div class="dashboard-flex-input">
+                    <div class="dashboard-input mt-4">
+                        <label class="label-title"> Subject </label>
+                        <input asp-for="Subject" type="text" class="form--control" placeholder="Subject">
+                        <span asp-validation-for="Subject" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="dashboard-flex-input">
+                    <div class="dashboard-input mt-4">
+                        <label class="label-title"> Content </label>
+                        <textarea asp-for="Content" type="text" class="form--control" style="height: 200px;"></textarea>
+                        <span asp-validation-for="Content" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="btn-wrapper mt-4">
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="cmn-btn bg-success text-white">Send</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    var mailOperations = document.getElementById('mailOperations');
+    var admins = document.getElementById('admins');
+
+    mailOperations.classList.add('active');
+    admins.classList.add('selected');
+</script>

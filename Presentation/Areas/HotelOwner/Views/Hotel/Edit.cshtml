@@ -1,0 +1,50 @@
+﻿@model Entity.Concrete.Hotel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/HotelOwner/Views/Shared/_HotelOwnerLayout.cshtml";
+}
+
+<div class="dashboard-reservation">
+    <div class="single-reservation bg-white base-padding">
+        <h3 class="single-reservation-title text-center my-3"> Edit Role </h3>
+        <div class="custom--form dashboard-form">
+            <form method="post" enctype="multipart/form-data">
+                <div class="dashboard-flex-input">
+                    <div class="dashboard-input mt-4">
+                        <label class="label-title"> Title </label>
+                        <input asp-for="Title" type="text" class="form--control" placeholder="Title">
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="dashboard-flex-input">
+                    <div class="dashboard-input mt-4">
+                        <label class="label-title"> Cover Image </label>
+                        <input name="image" type="file" class="form-control" />
+                    </div>
+                </div>
+                <div class="dashboard-flex-input">
+                    <div class="dashboard-input mt-4">
+                        <label class="label-title"> Details </label>
+                        <textarea asp-for="Details" id="textarea"></textarea>
+                        <span asp-validation-for="Details" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="btn-wrapper mt-4">
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="cmn-btn btn-bg-1">Save Changes</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="//cdn.ckeditor.com/4.19.0/full/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('textarea');
+</script>
+
+<script>
+    var hotel = document.getElementById('hotel').classList.add('active');
+</script>

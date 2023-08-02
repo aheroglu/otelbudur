@@ -1,0 +1,47 @@
+﻿@model Entity.Concrete.Question
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="dashboard-reservation">
+    <div class="single-reservation bg-white base-padding">
+        <h3 class="single-reservation-title text-center my-3"> Question Details </h3>
+        <div class="custom--form dashboard-form">
+            <div class="row">
+                <div class="dashboard-flex-input col-sm-12 col-md-6 col-lg-6">
+                    <div class="dashboard-input mt-4">
+                        <label class="label-title"> Full Name </label>
+                        <input asp-for="@Model.FullName" type="text" class="form--control" readonly>
+                    </div>
+                </div>
+                <div class="dashboard-flex-input col-sm-12 col-md-6 col-lg-6">
+                    <div class="dashboard-input mt-4">
+                        <label class="label-title"> Email </label>
+                        <input asp-for="@Model.Email" type="text" class="form--control" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="dashboard-flex-input">
+                <div class="dashboard-input mt-4">
+                    <label class="label-title"> Question </label>
+                    <textarea asp-for="@Model.Details" type="text" class="form--control" style="height: 200px;" readonly></textarea>
+                </div>
+            </div>
+            <div class="btn-wrapper mt-4">
+                <div class="d-grid gap-2">
+                    <a href="/Admin/Question/Answer/@Model.Id" type="submit" class="cmn-btn btn-bg-1">Answer</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var messages = document.getElementById('messages');
+    var question = document.getElementById('question');
+
+    messages.classList.add('active');
+    question.classList.add('selected');
+</script>

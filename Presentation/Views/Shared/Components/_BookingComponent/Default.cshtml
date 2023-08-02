@@ -1,0 +1,120 @@
+﻿<div class="location-area">
+    <div class="container">
+        <div class="banner-location bg-white radius-5">
+            <form method="get" asp-action="Index" asp-controller="Booking">
+                <div class="banner-location-flex">
+                    <div class="banner-location-single">
+                        <div class="banner-location-single-flex">
+                            <div class="banner-location-single-icon">
+                                <i class="las la-map-marker-alt"></i>
+                            </div>
+                            <div class="banner-location-single-contents">
+                                <span class="banner-location-single-contents-subtitle"> Location </span>
+                                <div class="banner-location-single-contents-dropdown">
+                                    <select class="js-select select-style-two" name="locationId">
+                                        @foreach (var location in ViewBag.Locations)
+                                        {
+                                            <option value="@location.Value">@location.Text</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="banner-location-single">
+                        <div class="banner-location-single-flex">
+                            <div class="banner-location-single-icon">
+                                <i class="las la-calendar"></i>
+                            </div>
+                            <div class="banner-location-single-contents">
+                                <span class="banner-location-single-contents-subtitle"> Check In </span>
+                                <div class="banner-location-single-contents-dropdown">
+                                    <input required id="chkIn" name="checkIn" type="date" class="form-control" min="@DateTime.Now.ToString("yyyy-MM-dd")" style="height: 55px; color: var(--paragraph-color); border: 1px solid var(--input-color);" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="banner-location-single">
+                        <div class="banner-location-single-flex">
+                            <div class="banner-location-single-icon">
+                                <i class="las la-calendar"></i>
+                            </div>
+                            <div class="banner-location-single-contents">
+                                <span class="banner-location-single-contents-subtitle"> Check Out </span>
+                                <div class="banner-location-single-contents-dropdown custom-select">
+                                    <input required id="chkOut" name="checkOut" type="date" class="form-control" min="@DateTime.Now.ToString("yyyy-MM-dd")" style="height: 55px; color: var(--paragraph-color); border: 1px solid var(--input-color);" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="banner-location-single">
+                        <div class="banner-location-single-flex">
+                            <div class="banner-location-single-icon">
+                                <i class="las la-user-friends"></i>
+                            </div>
+                            <div class="banner-location-single-contents">
+                                <span class="banner-location-single-contents-subtitle"> Adult </span>
+                                <div class="banner-location-single-contents-dropdown custom-select">
+                                    <select class="js-select select-style-two" name="adultCount">
+                                        <option value="1">1</option>
+                                        <option value="2" selected>2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="banner-location-single">
+                        <div class="banner-location-single-flex">
+                            <div class="banner-location-single-icon">
+                                <i class="las la-user-friends"></i>
+                            </div>
+                            <div class="banner-location-single-contents">
+                                <span class="banner-location-single-contents-subtitle"> Children </span>
+                                <div class="banner-location-single-contents-dropdown custom-select">
+                                    <select class="js-select select-style-two" name="childCount">
+                                        <option value="0">0</option>
+                                        <option value="1" selected>1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="banner-location-single-search">
+                        <div class="search-suggestions-wrapper">
+                            <button type="submit" class="search-click-icon border-0">
+                                <i class="las la-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById("chkIn").addEventListener("change", function () {
+        var selectedDate = new Date(this.value);
+        var today = new Date();
+
+        if (selectedDate < today) {
+            this.value = today.toISOString().slice(0, 10);
+        }
+    });
+
+    document.getElementById("chkOut").addEventListener("change", function () {
+        var selectedDate = new Date(this.value);
+        var today = new Date();
+
+        if (selectedDate < today) {
+            this.value = today.toISOString().slice(0, 10);
+        }
+    });
+</script>

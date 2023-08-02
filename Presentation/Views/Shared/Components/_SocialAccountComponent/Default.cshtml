@@ -1,0 +1,12 @@
+﻿@model List<Entity.Concrete.SocialAccount>
+
+<div class="footer-widget-social">
+    <ul class="footer-widget-social-list list-style-none justify-content-center">
+        @foreach (var x in Model)
+        {
+            <li class="footer-widget-social-list-item">
+                <a class="footer-widget-social-list-link" href="@x.Link"> <i class="@x.Icon"></i> </a>
+            </li>
+        }
+    </ul>
+</div>

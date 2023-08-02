@@ -1,0 +1,59 @@
+﻿@model Entity.Concrete.About
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="dashboard-reservation">
+    <div class="single-reservation bg-white base-padding">
+        <h3 class="single-reservation-title text-center my-3"> About Page </h3>
+        <div class="table-responsive">
+            <table class="table table-hover text-center align-middle">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Content</th>
+                        <th>Footer</th>
+                        <th>Phone Number</th>
+                        <th>Email</th>
+                        <th>Operations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@Model.Title</td>
+                        <td class="text-truncate" style="max-width: 150px;">@Model.Content</td>
+                        <td class="text-truncate" style="max-width: 150px;">@Model.Footer</td>
+                        <td>@Model.PhoneNumber</td>
+                        <td>@Model.Email</td>
+                        <td>
+                            <a href="/Admin/About/Edit" class="btn" title="Edit"><i class="fa fa-edit text-success"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jque ry.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+@if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+{
+    <script>
+        swal({
+            title: 'Success!',
+            text: '@Html.Raw(System.Web.HttpUtility.HtmlDecode(TempData["SuccessMessage"].ToString()))',
+            icon: 'success',
+            timer: 3000,
+            buttons: false,
+        })
+    </script>
+}
+
+<script>
+    document.getElementById('siteSettings').classList.add('active');
+    document.getElementById('about').classList.add('selected');
+</script>

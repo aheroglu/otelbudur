@@ -1,0 +1,49 @@
+﻿@model Entity.Concrete.Contact
+
+@{
+    ViewData["Title"] = "Answer";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="dashboard-reservation">
+    <div class="single-reservation bg-white base-padding">
+        <h3 class="single-reservation-title text-center my-3"> Answer Message </h3>
+        <div class="custom--form dashboard-form">
+            <form method="post">
+                <div class="row">
+                    <div class="dashboard-flex-input col-sm-12 col-md-6 col-lg-6">
+                        <div class="dashboard-input mt-4">
+                            <label class="label-title"> Full Name </label>
+                            <input value="@Model.FirstName @Model.LastName" type="text" class="form--control" readonly>
+                        </div>
+                    </div>
+                    <div class="dashboard-flex-input col-sm-12 col-md-6 col-lg-6">
+                        <div class="dashboard-input mt-4">
+                            <label class="label-title"> Email </label>
+                            <input asp-for="Email" type="text" class="form--control" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-flex-input">
+                    <div class="dashboard-input mt-4">
+                        <label class="label-title"> Answer </label>
+                        <textarea name="body" type="text" class="form--control" style="height: 200px;"></textarea>
+                    </div>
+                </div>
+                <div class="btn-wrapper mt-4">
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="cmn-btn bg-success text-white">Send</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    var messages = document.getElementById('messages');
+    var contact = document.getElementById('contact');
+
+    messages.classList.add('active');
+    contact.classList.add('selected');
+</script>

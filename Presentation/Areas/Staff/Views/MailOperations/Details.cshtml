@@ -1,0 +1,40 @@
+﻿@model Entity.Concrete.EmailsSent
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Staff/Views/Shared/_StaffLayout.cshtml";
+}
+
+<div class="dashboard-reservation">
+    <div class="single-reservation bg-white base-padding">
+        <h3 class="single-reservation-title text-center my-3"> Question Details </h3>
+        <div class="custom--form dashboard-form">
+            <div class="row">
+                <div class="dashboard-flex-input col-sm-12 col-md-6 col-lg-6">
+                    <div class="dashboard-input mt-4">
+                        <label class="label-title"> Date </label>
+                        <input asp-for="@Model.Date" type="text" class="form--control" readonly>
+                    </div>
+                </div>
+                <div class="dashboard-flex-input col-sm-12 col-md-6 col-lg-6">
+                    <div class="dashboard-input mt-4">
+                        <label class="label-title"> Sent For </label>
+                        <input asp-for="@Model.SentFor" type="text" class="form--control" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="dashboard-flex-input">
+                <div class="dashboard-input mt-4">
+                    <label class="label-title"> Content </label>
+                    <textarea asp-for="@Model.Content" type="text" class="form--control" style="height: 200px;" readonly></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.getElementById('mailOperations').classList.add('active');
+    document.getElementById('emailsSent').classList.add('selected');
+</script>

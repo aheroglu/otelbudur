@@ -1,0 +1,61 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/HotelOwner/Views/Shared/_HotelOwnerLayout.cshtml";
+}
+
+<div class="dashboard-reservation">
+    <div class="single-reservation bg-white base-padding">
+        <h3 class="single-reservation-title text-center my-3"> Hotel </h3>
+        <table class="table table-hover text-center align-middle">
+            <thead>
+                <tr>
+                    <th>Cover Image</th>
+                    <th>Location</th>
+                    <th>Title</th>
+                    <th>Operations</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var x in Model)
+                {
+                    <tr>
+                        @if (x.CoverImage == "/Templates/main/assets/img/default-image.png")
+                        {
+                            <td><img src="@x.CoverImage" width="250" /></td>
+                        }
+                        else
+                        {
+                            <td><img src="/images/hotel/@x.CoverImage" width="250" /></td>
+                        }
+                        <td>@x.Location.Name</td>
+                        <td>@x.Title</td>
+                        <td>
+                            <a href="/HotelOwner/Hotel/Details/@x.Id" class="btn" title="Details"><i class="fa fa-circle-info text-warning"></i></a>
+                            <a href="/HotelOwner/Hotel/Edit/@x.Id" class="btn" title="Edit"><i class="fa fa-edit text-success"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jque ry.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+@if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+{
+    <script>
+        swal({
+            title: 'Success!',
+            text: '@Html.Raw(System.Web.HttpUtility.HtmlDecode(TempData["SuccessMessage"].ToString()))',
+            icon: 'success',
+            timer: 3000,
+            buttons: false,
+        })
+    </script>
+}
+
+<script>
+    var hotel = document.getElementById('hotel').classList.add('active');
+</script>

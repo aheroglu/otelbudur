@@ -1,0 +1,51 @@
+﻿@model Entity.Concrete.SocialAccount
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Staff/Views/Shared/_StaffLayout.cshtml";
+}
+
+<div class="dashboard-reservation">
+    <div class="single-reservation bg-white base-padding">
+        <h3 class="single-reservation-title text-center my-3"> Edit Social Account </h3>
+        <div class="custom--form dashboard-form">
+            <form method="post" enctype="multipart/form-data">
+                <div class="dashboard-flex-input">
+                    <div class="dashboard-input mt-4">
+                        <label class="label-title"> Icon </label>
+                        @Html.DropDownListFor(x=>x.Icon, new List<SelectListItem>{
+                        new SelectListItem{ Text = "Instagram", Value = "fab fa-instagram" },
+                        new SelectListItem { Text = "LinkedIn", Value = "fab fa-linkedin" },
+                        new SelectListItem { Text = "Facebook", Value = "fab fa-facebook" },
+                        new SelectListItem { Text = "Snapchat", Value = "fab fa-snapchat" },
+                        new SelectListItem { Text = "Spotify", Value = "fab fa-spotify" },
+                        new SelectListItem { Text = "Telegram", Value = "fab fa-telegram" },
+                        new SelectListItem { Text = "TikTok", Value = "fab fa-tiktok" },
+                        new SelectListItem { Text = "Twitter", Value = "fab fa-twitter" },
+                        new SelectListItem { Text = "YouTube", Value = "fab fa-youtube" }
+                        }, new { @class = "form--control form-select" })
+                    </div>
+                </div>
+                <div class="dashboard-flex-input">
+                    <div class="dashboard-input mt-4">
+                        <label class="label-title"> Link </label>
+                        <input asp-for="Link" type="text" class="form--control" placeholder="Link">
+                        <span asp-validation-for="Link" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="btn-wrapper mt-4">
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="cmn-btn btn-bg-1">Save Changes</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    document.getElementById('siteSettings').classList.add('active');
+    document.getElementById('socialAccount').classList.add('selected');
+</script>

@@ -1,0 +1,118 @@
+﻿@model List<Entity.Concrete.About>
+
+<footer class="footer-area footer-area-two footer-bg-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="footer-wrapper">
+                    <div class="footer-wrapper-flex">
+                        @foreach (var x in Model)
+                        {
+                            <div class="footer-wrapper-single">
+                                <div class="footer-widget widget">
+                                    <div class="footer-widget-contents">
+                                        <div class="footer-widget-logo">
+                                            <a href="/Home">
+                                                <span class="text-white fs-4" style="letter-spacing: 6px;">OtelBudur</span>
+                                            </a>
+                                        </div>
+                                        <div class="footer-widget-inner mt-4">
+                                            <p class="footer-widget-contents-para"> @x.Footer </p>
+                                            <div class="copyright-contents-items mt-5">
+                                                <div class="copyright-contents-single">
+                                                    <div class="copyright-contents-single-flex">
+                                                        <div class="copyright-contents-single-icon">
+                                                            <i class="las la-phone"></i>
+                                                        </div>
+                                                        <div class="copyright-contents-single-details">
+                                                            <span class="copyright-contents-single-details-title"> Have a question? </span>
+                                                            <a href="#" class="copyright-contents-single-details-link"> @x.PhoneNumber </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="copyright-contents-single">
+                                                    <div class="copyright-contents-single-flex">
+                                                        <div class="copyright-contents-single-icon">
+                                                            <i class="las la-envelope"></i>
+                                                        </div>
+                                                        <div class="copyright-contents-single-details">
+                                                            <span class="copyright-contents-single-details-title"> Have a question? </span>
+                                                            <a href="#" class="copyright-contents-single-details-link"> @x.Email </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        @await Component.InvokeAsync("_NewsletterComponent")
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-navbar">
+        <div class="container">
+            <div class="footer-widget widget">
+                <div class="footer-widget-nav">
+                    <ul class="footer-widget-nav-list list-style-none">
+                        <li class="footer-widget-nav-list-item">
+                            <a href="/About" class="footer-widget-nav-list-link"> About </a>
+                        </li>
+                        <li class="footer-widget-nav-list-item">
+                            <a onclick="termsOfUse()" class="footer-widget-nav-list-link" style="cursor: pointer;"> Terms of use </a>
+                        </li>
+                        <li class="footer-widget-nav-list-item">
+                            <a onclick="privacyPolicy()" class="footer-widget-nav-list-link" style="cursor: pointer;"> Privacy Policy </a>
+                        </li>
+                        <li class="footer-widget-nav-list-item">
+                            <a href="/Contact" class="footer-widget-nav-list-link"> Contact </a>
+                        </li>
+                        <li class="footer-widget-nav-list-item">
+                            <a href="/LogIn/HotelOwnerLogIn" class="footer-widget-nav-list-link"> Log In as Hotel Owner </a>
+                        </li>
+                        <li class="footer-widget-nav-list-item">
+                            <a href="/LogIn/ManagementLogIn" class="footer-widget-nav-list-link"> Log In as Managemet </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright-area footer-padding">
+        <div class="container">
+            <div class="copyright-contents">
+                <div class="copyright-contents-flex">
+                    
+                    @await Component.InvokeAsync("_SocialAccountComponent")
+
+                    <span class="copyright-contents-main"> &copy; @DateTime.Now.Year Developed by <a href="https://ahmetyazbulursun.com" target="bla"> Ahmet Hakan Eroğlu </a> </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+<script>
+    function termsOfUse() {
+        swal({
+            title: 'Terms Of Use',
+            text: 'These Terms of Use govern your use of our website. By accessing and using our website, you agree to comply with these terms. Please read them carefully before proceeding. Our website is provided for informational purposes only and does not constitute any legal or contractual obligations. We strive to ensure the accuracy and availability of the information on our website but cannot guarantee its completeness or timeliness. We reserve the right to modify or terminate our website at any time without prior notice. We are not responsible for any errors, inaccuracies, or interruptions in the content of our website. By using our website, you acknowledge that you are solely responsible for any risks associated with the use of the information or services provided. We may include third-party links or advertisements on our website, but we do not endorse or assume any responsibility for the content or practices of those third parties. Your use of our website is subject to our Privacy Policy. If you have any questions or concerns about these Terms of Use, please contact us.',
+            icon: 'info',
+        });
+    }
+
+    function privacyPolicy() {
+        swal({
+            title: 'Privay Policy',
+            text: 'Our Privacy Policy explains how we collect, use, and protect your personal information when you visit our website. We are committed to safeguarding your privacy and ensuring the confidentiality of the data you provide to us. We collect minimal personal information necessary for processing your reservations and improving your user experience. Your information is securely stored and will not be shared with third parties without your consent, except when required by law. We use cookies and similar technologies to enhance your browsing experience and gather statistical data about our website usage. By using our website, you consent to the collection and use of your personal information as outlined in our Privacy Policy. If you have any questions or concerns about our privacy practices, please contact us.',
+            icon: 'info',
+        });
+    }
+</script>

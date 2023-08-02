@@ -1,0 +1,73 @@
+﻿@model Entity.Concrete.Contact
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<section class="contact-area pat-100 pab-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mt-5">
+                <div class="contact-thumb">
+                    <img src="/Templates/main/assets/img/single-page/contact.jpg" alt="img">
+                </div>
+            </div>
+            <div class="col-lg-6 mt-5">
+                <div class="contact-wrapper contact-padding bg-white radius-20">
+                    <div class="contact-contents">
+                        <h4 class="contact-contents-title"> Get in touch </h4>
+                        <p class="contact-contents-para mt-2"> Our friendly team would love to hear from you. </p>
+                        <div class="contact-contents-form custom-form">
+                            <form method="post">
+                                <div class="single-flex-input mt-4">
+                                    <div class="single-input mt-4">
+                                        <input asp-for="FirstName" type="text" class="form--control radius-5" placeholder="First Name">
+                                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                                    </div>
+                                    <div class="single-input mt-4">
+                                        <input asp-for="LastName" type="text" class="form--control radius-5" placeholder="Last Name">
+                                        <span asp-validation-for="LastName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="single-input mt-4">
+                                    <input asp-for="Email" type="text" class="form--control radius-5" placeholder="Type Email">
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                                <div class="single-input mt-4">
+                                    <input asp-for="PhoneNumber" type="tel" class="form--control radius-5" id="phone" placeholder="Type Number">
+                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                </div>
+                                <div class="single-input mt-4">
+                                    <textarea asp-for="Message" class="form--control form-message radius-5" placeholder="Message"></textarea>
+                                    <span asp-validation-for="Message" class="text-danger"></span>
+                                </div>
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="submit-btn radius-5"> Send Message </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<script src="~/lib/jquery/dist/jque ry.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+@if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+{
+    <script>
+        swal({
+            title: 'Success!',
+            text: '@Html.Raw(System.Web.HttpUtility.HtmlDecode(TempData["SuccessMessage"].ToString()))',
+            icon: 'success',
+            timer: 3000,
+            buttons: false,
+        })
+    </script>
+}

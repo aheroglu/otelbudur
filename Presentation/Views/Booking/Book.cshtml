@@ -1,0 +1,66 @@
+﻿@model BookViewModel
+
+@{
+    ViewData["Title"] = "Book";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<section class="Checkout-area section-bg-2 pat-100 pab-100">
+    <div class="container">
+        <div class="row g-4 mt-5">
+            <div class="col-12">
+                <div class="sticky-top">
+                    <div class="checkout-widget checkout-widget-padding widget bg-white radius-10">
+                        <div class="checkout-sidebar">
+                            <h4 class="checkout-sidebar-title"> Booking Details </h4>
+                            <div class="checkout-sidebar-contents">
+                                <ul class="checkout-flex-list list-style-none checkout-border-top pt-3 mt-3">
+                                    <li class="list"> <span class="regular"> Checking In </span> <span class="strong"> @Model.CheckIn </span> </li>
+                                    <li class="list"> <span class="regular"> Checking Out </span> <span class="strong"> @Model.CheckOut </span> </li>
+                                    <li class="list"> <span class="regular"> Number of Adult </span> <span class="strong"> @Model.NumberOfAdult </span> </li>
+                                    <li class="list"> <span class="regular"> Number of Children </span> <span class="strong"> @Model.NumberOfChild </span> </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="checkout-widget checkout-widget-padding widget bg-white radius-10">
+                        <div class="checkout-sidebar">
+                            <h4 class="checkout-sidebar-title"> Invoice </h4>
+                            <div class="checkout-sidebar-contents">
+                                <ul class="checkout-flex-list list-style-none checkout-border-top pt-3 mt-3">
+                                    <li class="list"> <span class="regular"> Total </span> <span class="strong color-one fs-20"> @Model.Total ₺ </span> </li>
+                                </ul>
+                            </div>
+                            <form method="post">
+                                <div class="checkbox-wrap mt-4">
+                                    @if (@ViewBag.ErrorMessage != null)
+                                    {
+                                        <span class="text-danger">@ViewBag.ErrorMessage</span>
+                                    }
+                                    <div class="checkbox-inline">
+                                        <input name="isConfirmed" class="check-input" type="checkbox" id="agree" value="true">
+                                        <label class="checkbox-label" for="agree"> I agree to the <a onclick="termsConditions()" style="cursor: pointer;">Terms & Conditions</a> of OtelBudur</label>
+                                    </div>
+                                </div>
+                                <div class="btn-wrapper mt-4">
+                                    <button type="submit" class="cmn-btn btn-bg-1 btn-small"> Confirm </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    function termsConditions() {
+        swal({
+            title: 'Terms Of Use',
+            text: 'All reservations are subject to availability and confirmation from the hotel. To secure a reservation, a valid credit card or advance payment may be required. The rates displayed are based on the current exchange rates and are subject to change without prior notice.',
+            icon: 'info',
+        });
+    }
+</script>

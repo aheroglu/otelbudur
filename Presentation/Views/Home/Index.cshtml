@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+@await Component.InvokeAsync("_BannerComponent")
+
+@await Component.InvokeAsync("_BookingComponent")
+
+@await Component.InvokeAsync("_FeaturesComponent")
+
+@await Component.InvokeAsync("_NearbyAttractionsComponent")
+
+@await Component.InvokeAsync("_ThoughtsFromGuestsComponent")
+
+@await Component.InvokeAsync("_ClicksArroundOurHotelComponent")
+
+@await Component.InvokeAsync("_FAQComponent")
+
+@await Component.InvokeAsync("_BrandsComponent")
+
+
+<script src="~/lib/jquery/dist/jque ry.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+@if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+{
+    <script>
+        swal({
+            title: 'Success!',
+            text: '@Html.Raw(System.Web.HttpUtility.HtmlDecode(TempData["SuccessMessage"].ToString()))',
+            icon: 'success',
+            timer: 3000,
+            buttons: false
+        })
+    </script>
+}
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <script>
+        swal({
+            title: 'Error!',
+            text: '@Html.Raw(System.Web.HttpUtility.HtmlDecode(TempData["ErrorMessage"].ToString()))',
+            icon: 'error',
+            timer: 3000,
+            buttons: false
+        })
+    </script>
+}

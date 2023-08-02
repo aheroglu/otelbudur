@@ -1,0 +1,79 @@
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model IPagedList<Entity.Concrete.EmailsSent>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="dashboard-reservation">
+    <div class="single-reservation bg-white base-padding">
+        <h3 class="single-reservation-title text-center my-3"> Emails Sent </h3>
+        <div class="table-responsive">
+            <table class="table table-hover text-center align-middle">
+                <thead>
+                    <tr>
+                        <th>Sent For</th>
+                        <th>Date</th>
+                        <th>Content</th>
+                        <th>Operations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var x in Model)
+                    {
+                        <tr>
+                            <td>@x.SentFor</td>
+                            <td>@x.Date</td>
+                            <td class="text-truncate" style="max-width: 250px;">@x.Content</td>
+                            <td>
+                                <a href="/Admin/MailOperations/Details/@x.Id" class="btn" title="Details"><i class="fa fa-circle-info text-warning"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-center mt-5">
+            @Html.PagedListPager(
+            (IPagedList)Model,
+            page => Url.Action("MailOperations", "Admin", new { page }),
+            new X.PagedList.Web.Common.PagedListRenderOptions
+            {
+            LiElementClasses = new string[] { "pagination-list-item-link mx-1 shadow-sm rounded" },
+            PageClasses = new string[] { "pagination-list-item" },
+            PreviousElementClass = "pagination-list-item-prev",
+            NextElementClass = "pagination-list-item-next",
+            ActiveLiElementClass = "bg-primary text-white",
+            ContainerDivClasses = new string[] { "pagination-list list-style-none" },
+            MaximumPageNumbersToDisplay=5
+            })
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var mailOperations = document.getElementById('mailOperations');
+    var emailsSent = document.getElementById('emailsSent');
+
+    mailOperations.classList.add('active');
+    emailsSent.classList.add('selected');
+</script>
+
+<script src="~/lib/jquery/dist/jque ry.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+@if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+{
+    <script>
+        swal({
+            title: 'Success!',
+            text: '@Html.Raw(System.Web.HttpUtility.HtmlDecode(TempData["SuccessMessage"].ToString()))',
+            icon: 'success',
+            timer: 3000,
+            buttons: false,
+        })
+    </script>
+}

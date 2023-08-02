@@ -1,0 +1,135 @@
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model IPagedList<Entity.Concrete.Booking>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/HotelOwner/Views/Shared/_HotelOwnerLayout.cshtml";
+}
+
+<div class="dashboard-reservation">
+    <div class="single-reservation bg-white base-padding">
+        <h3 class="single-reservation-title text-center my-3"> Bookings </h3>
+        <div class="table-responsive">
+            <table class="table table-hover text-center align-middle">
+                <thead>
+                    <tr>
+                        <th>Booking Time</th>
+                        <th>User</th>
+                        <th>Hotel</th>
+                        <th>Room</th>
+                        <th>Status</th>
+                        <th>Adult Count</th>
+                        <th>Child Count</th>
+                        <th>Check In</th>
+                        <th>Check Out</th>
+                        <th>Operations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var x in Model)
+                    {
+                        <tr>
+                            <td>@x.BookingTime.ToLongDateString()</td>
+                            <td>@x.User.FullName</td>
+                            <td>@x.Room.Hotel.Title</td>
+                            <td>@x.Room.Title</td>
+                            @if (x.ReservationStatus == "Pending")
+                            {
+                                <td><span class="badge text-black bg-warning">@x.ReservationStatus</span></td>
+                            }
+                            @if (x.ReservationStatus == "Accepted")
+                            {
+                                <td><span class="badge text-white bg-info">@x.ReservationStatus</span></td>
+                            }
+                            @if (x.ReservationStatus == "Cancelled")
+                            {
+                                <td><span class="badge text-white bg-danger">@x.ReservationStatus</span></td>
+                            }
+                            @if (x.ReservationStatus == "Completed")
+                            {
+                                <td><span class="badge text-white bg-success">@x.ReservationStatus</span></td>
+                            }
+                            <td>@x.AdultCount</td>
+                            <td>@x.ChildCount</td>
+                            <td>@x.CheckIn.ToLongDateString()</td>
+                            <td>@x.CheckOut.ToLongDateString()</td>
+                            <td>
+                                @if (x.ReservationStatus != "Accepted" && x.ReservationStatus != "Cancelled" && x.ReservationStatus != "Completed")
+                                {
+                                    <a class="btn" title="Save as Accepted" onclick="saveAsAccepted(@x.Id)"><i class="fa fa-check info"></i></a>
+                                    <a class="btn" title="Save as Rejected" onclick="saveAsCancelled(@x.Id)"><i class="fa fa-xmark text-danger"></i></a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-center mt-5">
+            @Html.PagedListPager(
+            (IPagedList)Model,
+            page => Url.Action("Booking", "HotelOwner", new { page }),
+            new X.PagedList.Web.Common.PagedListRenderOptions
+            {
+            LiElementClasses = new string[] { "pagination-list-item-link mx-1 shadow-sm rounded" },
+            PageClasses = new string[] { "pagination-list-item" },
+            PreviousElementClass = "pagination-list-item-prev",
+            NextElementClass = "pagination-list-item-next",
+            ActiveLiElementClass = "bg-primary text-white",
+            ContainerDivClasses = new string[] { "pagination-list list-style-none" },
+            MaximumPageNumbersToDisplay=5
+            })
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jque ry.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+@if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+{
+    <script>
+        swal({
+            title: 'Success!',
+            text: '@Html.Raw(System.Web.HttpUtility.HtmlDecode(TempData["SuccessMessage"].ToString()))',
+            icon: 'success',
+            timer: 3000,
+            buttons: false,
+        })
+    </script>
+}
+
+<script>
+    function saveAsAccepted(id) {
+        swal({
+            title: 'Accept Booking',
+            text: 'Are you sure you want to save the reservation as accepted?',
+            icon: 'warning',
+            buttons: true,
+        }).then((result) => {
+            if (result) {
+                window.location.href = '/HotelOwner/Booking/SaveAsAccepted?id=' + id;
+            }
+        });
+    }
+</script>
+
+<script>
+    function saveAsCancelled(id) {
+        swal({
+            title: 'Cancel Booking',
+            text: 'Are you sure you want to save the reservation as cancelled?',
+            icon: 'warning',
+            buttons: true
+        }).then((result) => {
+            if (result) {
+                window.location.href = '/HotelOwner/Booking/SaveAsCancelled?id=' + id;
+            }
+        });
+    }
+</script>
+
+<script>
+    document.getElementById('booking').classList.add('active');
+</script>

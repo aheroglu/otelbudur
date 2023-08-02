@@ -1,0 +1,133 @@
+﻿@model ManagementLogInViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> Management Sign In | OtelBudur - Enjoy Your Dream Vacation! </title>
+
+    <link rel="icon" href="/Templates/main/favicon.png" sizes="16x16" type="icon/png">
+
+    <link rel="stylesheet" href="/Templates/main/assets/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="/Templates/main/assets/css/line-awesome.min.css">
+
+    <link rel="stylesheet" href="/Templates/main/assets/css/animate.css">
+
+    <link rel="stylesheet" href="/Templates/main/assets/css/slick.css">
+
+    <link rel="stylesheet" href="/Templates/main/assets/css/magnific-popup.css">
+
+    <link rel="stylesheet" href="/Templates/main/assets/css/flatpicker.css">
+
+    <link rel="stylesheet" href="/Templates/main/assets/css/intlTelInput.css">
+
+    <link rel="stylesheet" href="/Templates/main/assets/css/nice-select.css">
+
+    <link rel="stylesheet" href="/Templates/main/assets/css/style.css">
+</head>
+<body>
+
+    <section class="login-area padding-top-100 padding-bottom-100 mt-3">
+        <div class="container">
+            <div class="login-wrapper login-shadow bg-white">
+                <div class="login-wrapper-flex">
+                    <div class="login-wrapper-thumb">
+                        <img src="/Templates/main/assets/img/single-page/login.jpg" alt="img">
+                    </div>
+                    <div class="login-wrapper-contents login-padding">
+                        <h2 class="single-title text-center"> Welcome! </h2>
+                        <p class="sigle-para mt-2 text-center"> Login to Access Management Panel </p>
+                        @if (ViewBag.ErrorMessage != null)
+                        {
+                            <span class="d-block text-danger text-center">@ViewBag.ErrorMessage</span>
+                        }
+                        @if (ViewBag.LogInError != null)
+                        {
+                            <span class="d-block text-danger text-center">@ViewBag.LogInError</span>
+                        }
+                        @if (ViewBag.LockOutMessage != null)
+                        {
+                            <span class="d-block text-danger text-center">@ViewBag.LockOutMessage</span>
+                        }
+                        <form class="login-wrapper-contents-form custom-form" method="post" asp-action="ManagementLogIn">
+                            <div class="single-input mt-4">
+                                <label class="label-title mb-3"> User Name </label>
+                                <input asp-for="UserName" class="form--control" type="text" placeholder="User Name">
+                                <span asp-validation-for="UserName" class="text-danger"></span>
+                            </div>
+                            <div class="single-input mt-4">
+                                <label class="label-title mb-3"> Password </label>
+                                <input asp-for="Password" class="form--control" type="password" placeholder="Type Password">
+                                <div class="icon toggle-password">
+                                    <div class="show-icon"> <i class="las la-eye-slash"></i> </div>
+                                    <span class="hide-icon"> <i class="las la-eye"></i> </span>
+                                </div>
+                            </div>
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                            <button class="submit-btn w-100 mt-4" type="submit"> Sign In Now </button>
+                            <span class="account color-light mt-3"> Would you like a register as Hotel Owner? <a class="color-one" href="/SignUp"> Fill Out The Form </a> </span>
+                        </form>
+                        <div class="single-checkbox mt-3">
+                            <div class="forgot-password text-center">
+                                <a href="/ForgotPassword" class="forgot-btn color-one"> Forgot Password </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <script src="/Templates/main/assets/js/jquery-3.6.0.min.js"></script>
+
+    <script src="/Templates/main/assets/js/jquery-migrate.min.js"></script>
+
+    <script src="/Templates/main/assets/js/bootstrap.bundle.min.js"></script>
+
+    <script src="/Templates/main/assets/js/wow.js"></script>
+
+    <script src="/Templates/main/assets/js/slick.js"></script>
+
+    <script src="/Templates/main/assets/js/imagesloaded.pkgd.min.js"></script>
+
+    <script src="/Templates/main/assets/js/isotope.pkgd.min.js"></script>
+
+    <script src="/Templates/main/assets/js/jquery.magnific-popup.js"></script>
+
+    <script src="/Templates/main/assets/js/jquery.nice-select.js"></script>
+
+    <script src="/Templates/main/assets/js/flatpicker.js"></script>
+
+    <script src="/Templates/main/assets/js/nouislider-8.5.1.min.js"></script>
+
+    <script src="/Templates/main/assets/js/intlTelInput.js"></script>
+
+    <script src="/Templates/main/assets/js/main.js"></script>
+
+    <script src="~/lib/jquery/dist/jque ry.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    @if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+    {
+        <script>
+            swal({
+                title: 'Success!',
+                text: '@Html.Raw(System.Web.HttpUtility.HtmlDecode(TempData["SuccessMessage"].ToString()))',
+                icon: 'success',
+                timer: 3000,
+                buttons: false,
+            })
+        </script>
+    }
+
+</body>
+</html>

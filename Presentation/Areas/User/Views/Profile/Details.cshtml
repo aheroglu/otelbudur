@@ -1,0 +1,95 @@
+﻿@using Entity.Concrete;
+@using Microsoft.AspNetCore.Identity;
+@inject UserManager<AppUser> UserManager
+@model UserDetailsViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/User/Views/Shared/_ProfileLayout.cshtml";
+}
+
+<div class="dashboard-reservation">
+    <div class="single-reservation bg-white base-padding">
+        <div class="single-reservation-flex mb-4">
+            <div class="single-reservation-author">
+                <div class="single-reservation-author-flex">
+                    <div class="single-reservation-author-thumb">
+                        @if (ViewBag.Image == "/Templates/main/assets/img/default-user-image.jpg")
+                        {
+                            <img src="/Templates/main/assets/img/default-user-image.jpg" alt="img">
+                        }
+                        else
+                        {
+                            <img src="/images/user/@ViewBag.Image" alt="img">
+                        }
+                    </div>
+                    <div class="single-reservation-author-contents">
+                        <h5 class="single-reservation-author-contents-title"> @ViewBag.FullName </h5>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <p class="single-reservation-author-contents-para"> Admin </p>
+                        }
+                        @if (User.IsInRole("Staff"))
+                        {
+                            <p class="single-reservation-author-contents-para"> Staff </p>
+                        }
+                        @if (User.IsInRole("Hotel Owner"))
+                        {
+                            <p class="single-reservation-author-contents-para"> Hotel Owner </p>
+                        }
+                        @if (User.IsInRole("Member"))
+                        {
+                            <p class="single-reservation-author-contents-para"> Member since @Model.MemberSince.Year </p>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="btn-wrapper">
+                <a href="/User/Profile/Edit" class="cmn-btn btn-border"> Edit Profile </a>
+            </div>
+        </div>
+        <div class="single-reservation-item">
+            <div class="single-reservation-contact">
+                <div class="single-reservation-contact-item">
+                    <p class="single-reservation-contact-list"> <span> <i class="las la-phone-alt"></i> </span> @Model.PhoneNumber </p>
+                </div>
+                <div class="single-reservation-contact-item">
+                    <p class="single-reservation-contact-list"> <span> <i class="las la-envelope"></i> </span> @Model.Email </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="single-reservation bg-white base-padding">
+    <div class="single-reservation-flex">
+        <div class="single-reservation-author">
+            <div class="single-reservation-author-flex">
+                <div class="single-reservation-author-contents">
+                    <h5 class="single-reservation-author-contents-title"> Password </h5>
+                    @{
+                        DateTime today = DateTime.Now;
+                        DateTime lastChange = Model.PasswordLastChange;
+                        string monthDifference = (((today.Year - lastChange.Year) * 12) + today.Month - lastChange.Month).ToString();
+                    }
+                    @if (monthDifference == "0")
+                    {
+                        <p class="single-reservation-author-contents-para"> Last change was recently </p>
+                    }
+                    else
+                    {
+                        <p class="single-reservation-author-contents-para"> Last change @monthDifference month ago </p>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="btn-wrapper">
+            <a href="/User/Profile/ChangePassword" class="cmn-btn btn-border"> Change Password </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    var profile = document.getElementById('profile');
+    profile.classList.add('active');
+</script>

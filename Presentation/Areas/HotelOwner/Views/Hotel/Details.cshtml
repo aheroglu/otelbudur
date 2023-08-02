@@ -1,0 +1,45 @@
+﻿@model Entity.Concrete.Hotel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/HotelOwner/Views/Shared/_HotelOwnerLayout.cshtml";
+}
+
+<div class="dashboard-reservation">
+    <div class="single-reservation bg-white base-padding">
+        <h3 class="single-reservation-title text-center my-3"> Hotel Details </h3>
+        <div class="custom--form dashboard-form">
+            <div class="row">
+                <div class="dashboard-flex-input">
+                    <div class="dashboard-input mt-4">
+                        <label class="d-inline-block label-title border-bottom"> Cover Image </label>
+                        @if (Model.CoverImage == "/Templates/main/assets/img/default-image.png")
+                        {
+                            <img src="@Model.CoverImage" />
+                        }
+                        else
+                        {
+                            <img src="/images/hotel/@Model.CoverImage" />
+                        }
+                    </div>
+                </div>
+                <div class="dashboard-flex-input">
+                    <div class="dashboard-input mt-4">
+                        <label class="d-inline-block label-title border-bottom"> Title </label>
+                        <p>@Model.Title</p>
+                    </div>
+                </div>
+            </div>
+            <div class="dashboard-flex-input">
+                <div class="dashboard-input mt-4">
+                    <label class="d-inline-block label-title border-bottom"> Details </label>
+                    <p>@Html.Raw(Model.Details)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var hotel = document.getElementById('hotel').classList.add('active');
+</script>

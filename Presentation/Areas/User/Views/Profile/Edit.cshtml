@@ -1,0 +1,61 @@
+﻿@model EditUserViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/User/Views/Shared/_ProfileLayout.cshtml";
+}
+
+<div class="dashboard-reservation">
+    <div class="single-reservation bg-white base-padding">
+        <h3 class="single-reservation-title"> Edit Profile </h3>
+        <div class="custom--form dashboard-form">
+            <form method="post" enctype="multipart/form-data">
+                <div class="dashboard-flex-input">
+                    <div class="dashboard-input mt-4">
+                        <label class="label-title"> Full Name </label>
+                        <input asp-for="FullName" value="@Model.FullName" type="text" class="form--control" placeholder="Full Name">
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="dashboard-flex-input">
+                    <div class="dashboard-input mt-4">
+                        <label class="label-title"> User Name </label>
+                        <input asp-for="UserName" value="@Model.UserName" type="text" class="form--control" placeholder="User Name">
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="dashboard-flex-input">
+                    <div class="dashboard-input mt-4">
+                        <label class="label-title"> Profile Photo </label>
+                        <input name="image" type="file" class="form-control" />
+                    </div>
+                </div>
+                <div class="dashboard-flex-input">
+                    <div class="dashboard-input mt-4">
+                        <label class="label-title"> Email Address </label>
+                        <input asp-for="Email" value="@Model.Email" type="text" class="form--control" placeholder="Email Address">
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="dashboard-flex-input">
+                    <div class="dashboard-input mt-4">
+                        <label class="label-title"> Phone Number </label>
+                        <input asp-for="PhoneNumber" value="@Model.PhoneNumber" type="text" class="form--control" id="phone" placeholder="Phone Number">
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="btn-wrapper mt-4">
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="cmn-btn btn-bg-1">Save Changes</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var profile = document.getElementById('profile');
+    profile.classList.add('active');
+</script>

@@ -1,0 +1,230 @@
+﻿@model RoomFilterViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<section class="hotel-list-area section-bg-2 pat-100 pab-100">
+    <div class="container">
+        <div class="shop-contents-wrapper mt-5">
+            <div class="shop-icon">
+                <div class="shop-icon-sidebar">
+                    <i class="las la-bars"></i>
+                </div>
+            </div>
+            <div class="shop-sidebar-content">
+                <form method="post" asp-action="Index" asp-controller="Booking">
+
+                    <input type="hidden" name="LocationId" value="@Model.LocationId" />
+                    <input type="hidden" name="CheckIn" value="@Model.CheckIn" />
+                    <input type="hidden" name="CheckOut" value="@Model.CheckOut" />
+                    <input type="hidden" name="ChildCount" value="@Model.ChildCount" />
+                    <input type="hidden" name="AdultCount" value="@Model.AdultCount" />
+
+                    <div class="shop-close-content">
+                        <div class="shop-close-content-icon"> <i class="las la-times"></i> </div>
+                        <div class="single-shop-left bg-white radius-10">
+                            <div class="single-shop-left-title open">
+                                <h5 class="title"> Prices </h5>
+                                <div class="single-shop-left-inner mt-4">
+                                    <div asp-controller="Booking" class="price-range-slider" method="post" data-start-min="0" data-start-max="100000" data-min="0" data-max="100000" data-step="5">
+                                        <div class="ui-range-slider"></div>
+                                        <div class="ui-range-slider-footer">
+                                            <div class="ui-range-values">
+                                                <span class="ui-price-title"> Price: </span>
+                                                <div class="ui-range-value-min">
+                                                    $<span class="min_price">100</span>
+                                                    <input type="hidden" name="minPrice" value="100">
+                                                </div>-
+                                                <div class="ui-range-value-max">
+                                                    $<span class="max_price">9950</span>
+                                                    <input type="hidden" name="maxPrice" value="9950">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="single-shop-left-title open mt-4">
+                                <h5 class="title mb-2"> Amenities </h5>
+                                <div class="single-shop-left-inner margin-top-15">
+                                    <ul class="single-shop-left-list active-list list-style-none">
+                                        <li>
+                                            <label>
+                                                <input type="checkbox" name="Parking" class="form-check-input mb-3" value="true" />
+                                                Parking
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label>
+                                                <input type="checkbox" name="WiFi" class="form-check-input mb-3" value="true" />
+                                                Free Wifi
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label>
+                                                <input type="checkbox" name="Breakfast" class="form-check-input mb-3" value="true" />
+                                                Breakfast
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label>
+                                                <input type="checkbox" name="RoomService" class="form-check-input mb-3" value="true" />
+                                                Room Service
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label>
+                                                <input type="checkbox" name="Reception" class="form-check-input mb-3" value="true" />
+                                                Reception
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label>
+                                                <input type="checkbox" name="Pool" class="form-check-input mb-3" value="true" />
+                                                Pool
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label>
+                                                <input type="checkbox" name="Gym" class="form-check-input mb-3" value="true" />
+                                                Gym
+                                            </label>
+                                        </li>
+                                    </ul>
+                                    <div class="mt-3">
+                                        <button type="submit" class="btn btn-primary">Filter</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="shop-grid-contents">
+                <div id="tab-grid" class="tab-content-item active mt-4">
+                    <div class="row gy-4">
+                        @foreach (var room in Model.Rooms)
+                        {
+                            <div class="col-md-6">
+                                <div class="hotel-view bg-white radius-20">
+                                    @if (room.CoverImage == "/Templates/main/assets/img/default-image.png")
+                                    {
+                                        <a href="/Booking/Details/@room.Id" class="hotel-view-thumb hotel-view-grid-thumb bg-image" style="background-image: url(@room.CoverImage); background-size: cover;"></a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/Booking/Details/@room.Id" class="hotel-view-thumb hotel-view-grid-thumb bg-image" style="background-image: url(/images/room/@room.CoverImage); background-size: cover;"></a>
+                                    }
+                                    <div class="hotel-view-contents">
+                                        <div class="hotel-view-contents-header">
+                                            @{
+                                                double rateSum = Model.Rooms.Where(x => x.Id == room.Id).Select(x => x.Rating).Sum();
+                                                double rateResult = rateSum / 5;
+                                            }
+                                            <span class="hotel-view-contents-review"> <i class="las la-star"></i> @rateResult </span>
+                                            <h2 style="margin: 0; padding: 0;"> <a href="/Hotel/Index/@room.HotelId" style="margin: 0; padding: 0;"> @room.Hotel.Title </a> </h2>
+                                            <h4 class="hotel-view-contents-title" style="margin-top: 0; padding-top: 0;"> <a href="/Booking/Details/@room.Id" style="margin-top: 0; padding-top: 0;"> @room.Title </a> </h4>
+                                            <div class="hotel-view-contents-location mt-2">
+                                                <span class="hotel-view-contents-location-icon"> <i class="las la-map-marker-alt"></i> </span>
+                                                <span class="hotel-view-contents-location-para"> @room.Hotel.Location.Name </span>
+                                            </div>
+                                        </div>
+                                        <div class="hotel-view-contents-middle">
+                                            <div class="hotel-view-contents-flex">
+                                                @if (room.Parking == true)
+                                                {
+                                                    <div class="hotel-view-contents-icon myTooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="Car Parking">
+                                                        <i class="las la-parking"></i>
+                                                    </div>
+                                                }
+                                                @if (room.WiFi == true)
+                                                {
+                                                    <div class="hotel-view-contents-icon myTooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="Free Wifi">
+                                                        <i class="las la-wifi"></i>
+                                                    </div>
+                                                }
+                                                @if (room.Breakfast == true)
+                                                {
+                                                    <div class="hotel-view-contents-icon myTooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="Free Breakfast">
+                                                        <i class="las la-coffee"></i>
+                                                    </div>
+                                                }
+                                                @if (room.RoomService == true)
+                                                {
+                                                    <div class="hotel-view-contents-icon myTooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="Home Service">
+                                                        <i class="las la-quidditch"></i>
+                                                    </div>
+                                                }
+                                                @if (room.Pool == true)
+                                                {
+                                                    <div class="hotel-view-contents-icon myTooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="Swimming Pool">
+                                                        <i class="las la-swimming-pool"></i>
+                                                    </div>
+                                                }
+                                                @if (room.Reception == true)
+                                                {
+                                                    <div class="hotel-view-contents-icon myTooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="Reception">
+                                                        <i class="las la-receipt"></i>
+                                                    </div>
+                                                }
+                                                @if (room.Gym == true)
+                                                {
+                                                    <div class="hotel-view-contents-icon myTooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="Gym">
+                                                        <i class="las la-dumbbell"></i>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="hotel-view-contents-bottom">
+                                            <div class="hotel-view-contents-bottom-flex">
+                                                <div class="hotel-view-contents-bottom-contents">
+                                                    <h4 class="hotel-view-contents-bottom-title"> @room.Price ₺ <sub>/Night</sub> </h4>
+                                                    <p class="hotel-view-contents-bottom-para"> (@room.AdultCount Adults, @room.ChildCount Childs) </p>
+                                                </div>
+                                                <div class="btn-wrapper">
+                                                    <a href="/Booking/Details/@room.Id" class="cmn-btn btn-bg-1 btn-small"> See Details </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="row mt-5">
+                        <div class="col">
+                            <div class="pagination-wrapper">
+                                <ul class="pagination-list list-style-none">
+                                    <li class="pagination-list-item-prev">
+                                        <a href="javascript:void(0)" class="pagination-list-item-button"> Prev </a>
+                                    </li>
+                                    <li class="pagination-list-item">
+                                        <a href="javascript:void(0)" class="pagination-list-item-link"> 1 </a>
+                                    </li>
+                                    <li class="pagination-list-item active">
+                                        <a href="javascript:void(0)" class="pagination-list-item-link"> 2 </a>
+                                    </li>
+                                    <li class="pagination-list-item">
+                                        <a href="javascript:void(0)" class="pagination-list-item-link"> 3 </a>
+                                    </li>
+                                    <li class="pagination-list-item">
+                                        <a href="javascript:void(0)" class="pagination-list-item-link"> 4 </a>
+                                    </li>
+                                    <li class="pagination-list-item">
+                                        <a href="javascript:void(0)" class="pagination-list-item-link"> 5 </a>
+                                    </li>
+                                    <li class="pagination-list-item-next">
+                                        <a href="javascript:void(0)" class="pagination-list-item-button"> Next </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,51 @@
+﻿@model Entity.Concrete.RoomRating
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/HotelOwner/Views/Shared/_HotelOwnerLayout.cshtml";
+}
+
+<div class="dashboard-reservation">
+    <div class="single-reservation bg-white base-padding">
+        <h3 class="single-reservation-title text-center my-3"> Review Details </h3>
+        <div class="custom--form dashboard-form">
+            <div class="row">
+                <div class="dashboard-flex-input col-12">
+                    <div class="dashboard-input mt-4">
+                        <label class="label-title"> Room </label>
+                        <input asp-for="Room.Title" type="text" class="form--control" readonly>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="dashboard-flex-input col-sm-12 col-md-6 col-lg-6">
+                        <div class="dashboard-input mt-4">
+                            <label class="label-title"> User </label>
+                            <input asp-for="User.FullName" type="text" class="form--control" readonly>
+                        </div>
+                    </div>
+                    <div class="dashboard-flex-input col-sm-12 col-md-6 col-lg-6">
+                        <div class="dashboard-input mt-4">
+                            <label class="label-title"> Rate </label>
+                            <input asp-for="Rate" type="text" class="form--control" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="dashboard-flex-input">
+                <div class="dashboard-input mt-4">
+                    <label class="label-title"> Review </label>
+                    <textarea asp-for="Comment" type="text" class="form--control" style="height: 200px;" readonly></textarea>
+                </div>
+            </div>
+            <div class="btn-wrapper mt-4">
+                <div class="d-grid gap-2">
+                    <a href="/Admin/Contact/Answer/@Model.Id" type="submit" class="cmn-btn btn-bg-1">Answer</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var reviews = document.getElementById('reviews').classList.add('active');
+</script>

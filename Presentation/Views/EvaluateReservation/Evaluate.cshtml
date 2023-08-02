@@ -1,0 +1,66 @@
+﻿@model EvaluateReservationViewModel
+
+@{
+    ViewData["Title"] = "Evaluate";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<section class="confirmation-area section-bg-2 pat-100 pab-100">
+    <div class="container">
+        <div class="confirmation-contents center-text mt-5">
+            <div class="confirmation-contents-icon bg-warning">
+                <i class="las la-star"></i>
+            </div>
+            <form method="post">
+                <input type="hidden" asp-for="Email" />
+                <input type="hidden" asp-for="FullName" />
+                <input type="hidden" asp-for="RoomId" />
+
+                <h4 class="confirmation-contents-title"> Evaluate Your Reservation </h4>
+                <div class="review-tab-contents-single d-flex flex-column align-items-center justify-content-center">
+                    <input type="hidden" id="rating-value" name="rate" value="0" />
+                    <span class="fs-3">
+                        <i class="las la-star" data-value="1"></i>
+                        <i class="las la-star" data-value="2"></i>
+                        <i class="las la-star" data-value="3"></i>
+                        <i class="las la-star" data-value="4"></i>
+                        <i class="las la-star" data-value="5"></i>
+                    </span>
+                    <label id="commentLabel" class="invisible">Comment (Optional)</label>
+                    <textarea id="comment" asp-for="Comment" class="form-control mt-3 invisible"></textarea>
+                    <button id="submit-rating" type="submit" class="btn btn-primary text-white mt-3 invisible" placeholder="Optional">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const stars = document.querySelectorAll(".review-tab-contents-single .las");
+        const ratingValue = document.getElementById("rating-value");
+        const submitButton = document.getElementById("submit-rating");
+        const comment = document.getElementById('comment');
+        const commentLabel = document.getElementById('commentLabel');
+
+        stars.forEach(function (star) {
+            star.addEventListener("click", function () {
+                const value = parseInt(star.getAttribute("data-value"));
+                ratingValue.value = value;
+
+                stars.forEach(function (s) {
+                    const sValue = parseInt(s.getAttribute("data-value"));
+                    if (sValue <= value) {
+                        s.classList.add("text-warning");
+                    } else {
+                        s.classList.remove("text-warning");
+                    }
+                });
+
+                submitButton.classList.remove("invisible");
+                comment.classList.remove("invisible");
+                commentLabel.classList.remove('invisible');
+            });
+        });
+    });
+</script>

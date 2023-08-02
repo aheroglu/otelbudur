@@ -1,0 +1,82 @@
+﻿@model List<Entity.Concrete.RoomImage>
+
+@{
+    ViewData["Title"] = "RoomImages";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="dashboard-reservation">
+    <div class="single-reservation bg-white base-padding">
+        <h3 class="single-reservation-title text-center my-3"> Images of the @ViewBag.RoomName </h3>
+        <div class="col mb-3">
+            <a href="/Admin/Hotel/Add" class="btn bg-primary float-end"><i class="fa fa-plus text-white"></i></a>
+        </div>
+        <form method="post" action="/Admin/Hotel/DeleteSelected">
+            <table class="table table-hover text-center">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Operations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var x in Model)
+                    {
+                        <tr>
+                            @if (x.Image == "/Templates/main/assets/img/default-user-image.jpg")
+                            {
+                                <td><img src="@x.Image" width="300" /></td>
+                            }
+                            else
+                            {
+                                <td><img src="/images/room/@x.Image" width="300" /></td>
+                            }
+                            <td>
+                                <a class="btn" title="Delete" onclick="deleteRoomImage(@x.Id)"><i class="fa fa-trash text-danger"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jque ry.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+@if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+{
+    <script>
+        swal({
+            title: 'Success!',
+            text: '@Html.Raw(System.Web.HttpUtility.HtmlDecode(TempData["SuccessMessage"].ToString()))',
+            icon: 'success',
+            timer: 3000,
+            buttons: false,
+        })
+    </script>
+}
+
+<script>
+    function deleteRoomImage(id) {
+        swal({
+            title: 'Delete Room Image',
+            text: 'Are you sure you want to delete this image?',
+            icon: 'warning',
+            buttons: true,
+        }).then((result) => {
+            if (result) {
+                window.location.href = '/Admin/Hotel/DeleteRoomImage?id=' + id;
+            }
+        });
+    }
+</script>
+
+<script>
+    var hotelOperations = document.getElementById('hotelOperations');
+    var rooms = document.getElementById('rooms');
+
+    hotelOperations.classList.add('active');
+    rooms.classList.add('selected');
+</script>

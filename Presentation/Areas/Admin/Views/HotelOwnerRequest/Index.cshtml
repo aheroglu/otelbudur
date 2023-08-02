@@ -1,0 +1,131 @@
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model IPagedList<Entity.Concrete.HotelOwnerRequest>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="dashboard-reservation">
+    <div class="single-reservation bg-white base-padding">
+        <h3 class="single-reservation-title text-center my-3"> Hotel Owner Requests </h3>
+        <div class="table-responsive">
+            <table class="table table-hover text-center align-middle">
+                <thead>
+                    <tr>
+                        <th>Full Name</th>
+                        <th>User Name</th>
+                        <th>Email</th>
+                        <th>Hotel Name</th>
+                        <th>Location</th>
+                        <th>Phone Number</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Operations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var x in Model)
+                    {
+                        <tr>
+                            <td>@x.FullName</td>
+                            <td>@x.UserName</td>
+                            <td>@x.Email</td>
+                            <td>@x.HotelName</td>
+                            <td>@x.Location.Name</td>
+                            <td>@x.PhoneNumber</td>
+                            <td>@x.Date</td>
+                            @if (x.RequestStatus == "Approved")
+                            {
+                                <td><span class="badge text-white bg-info">@x.RequestStatus</span></td>
+                            }
+                            @if (x.RequestStatus == "Pending")
+                            {
+                                <td><span class="badge text-white bg-warning">@x.RequestStatus</span></td>
+                            }
+                            @if (x.RequestStatus == "Cancelled")
+                            {
+                                <td><span class="badge text-white bg-danger">@x.RequestStatus</span></td>
+                            }
+                            <td>
+                                @if (x.RequestStatus != "Approved" && x.RequestStatus != "Rejected")
+                                {
+                                    <a class="btn d-inline-block" title="Save as Accepted" onclick="saveAsApproved(@x.Id)"><i class="fa fa-check info"></i></a>
+                                    <a class="btn d-inline-block" title="Save as Cancelled" onclick="saveAsCancel(@x.Id)"><i class="fa fa-xmark text-danger"></i></a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-center mt-5">
+            @Html.PagedListPager(
+            (IPagedList)Model,
+            page => Url.Action("HotelOwnerRequest", "Admin", new { page }),
+            new X.PagedList.Web.Common.PagedListRenderOptions
+            {
+            LiElementClasses = new string[] { "pagination-list-item-link mx-1 shadow-sm rounded" },
+            PageClasses = new string[] { "pagination-list-item" },
+            PreviousElementClass = "pagination-list-item-prev",
+            NextElementClass = "pagination-list-item-next",
+            ActiveLiElementClass = "bg-primary text-white",
+            ContainerDivClasses = new string[] { "pagination-list list-style-none" },
+            MaximumPageNumbersToDisplay=5
+            })
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jque ry.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+@if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+{
+    <script>
+        swal({
+            title: 'Success!',
+            text: '@Html.Raw(System.Web.HttpUtility.HtmlDecode(TempData["SuccessMessage"].ToString()))',
+            icon: 'success',
+            timer: 3000,
+            buttons: false,
+        })
+    </script>
+}
+
+<script>
+    function saveAsApproved(id) {
+        swal({
+            title: 'Accept Request',
+            text: 'Are you sure you want to save the request as approved?',
+            icon: 'warning',
+            buttons: true,
+        }).then((result) => {
+            if (result) {
+                window.location.href = '/Admin/HotelOwnerRequest/SaveAsApproved?id=' + id;
+            }
+        });
+    }
+</script>
+
+<script>
+    function saveAsRejected(id) {
+        swal({
+            title: 'Reject Request',
+            text: 'Are you sure you want to save the request as rejected?',
+            icon: 'warning',
+            buttons: true
+        }).then((result) => {
+            if (result) {
+                window.location.href = '/Admin/HotelOwnerRequest/SaveAsRejected?id=' + id;
+            }
+        });
+    }
+</script>
+
+
+<script>
+    var users = document.getElementById('users').classList.add('active');
+    var hotelOwnerRequests = document.getElementById('hotelOwnerRequests').classList.add('selected');
+</script>

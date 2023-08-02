@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "Confirmation";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<section class="confirmation-area section-bg-2 pat-100 pab-100">
+    <div class="container">
+        <div class="confirmation-contents center-text mt-5">
+            <div class="confirmation-contents-icon">
+                <i class="las la-check"></i>
+            </div>
+            <h4 class="confirmation-contents-title"> Your reservation is confirmed </h4>
+            <p class="confirmation-contents-para"> Dear @ViewBag.FullName, Your reservation has been confirmed. We will inform you for about reservation status with email. Thanks for reserving our hotel! </p>
+            <div class="btn-wrapper flex-btn mt-4 mt-lg-5">
+                <a href="/Home" class="cmn-btn btn-outline-1 color-one"> Back to Home </a>
+                <a href="/User/Profile" class="cmn-btn btn-bg-1">See Reservations </a>
+            </div>
+        </div>
+    </div>
+</section>

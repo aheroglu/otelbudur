@@ -1,0 +1,52 @@
+﻿@model List<Entity.Concrete.AppUser>
+
+@{
+    ViewData["Title"] = "Users";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="dashboard-reservation">
+    <div class="single-reservation bg-white base-padding">
+        <h3 class="single-reservation-title text-center my-3"> User in @ViewBag.RoleName Role </h3>
+        <div class="table-responsive">
+            <table class="table table-hover text-center">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Full Name</th>
+                        <th>User Name</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var x in Model)
+                    {
+                        <tr>
+                            @if (x.Image == "/Templates/main/assets/img/default-user-image.jpg")
+                            {
+                                <td><img src="@x.Image" width="50" /></td>
+                            }
+                            @if (x.Image != "/Templates/main/assets/img/default-user-image.jpg")
+                            {
+                                <td><img src="/images/user/@x.Image" width="50" /></td>
+                            }
+                            <td>@x.FullName</td>
+                            <td>@x.UserName</td>
+                            <td>@x.Email</td>
+                            <td>@x.PhoneNumber</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var users = document.getElementById('users');
+    var roles = document.getElementById('roles');
+
+    users.classList.add('active');
+    roles.classList.add('selected');</script>

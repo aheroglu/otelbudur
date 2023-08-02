@@ -1,0 +1,59 @@
+﻿@model Entity.Concrete.About
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="dashboard-reservation">
+    <div class="single-reservation bg-white base-padding">
+        <h3 class="single-reservation-title text-center my-3"> Edit About Page </h3>
+        <div class="custom--form dashboard-form">
+            <form method="post">
+                <div class="row">
+                    <div class="dashboard-flex-input col-sm-12 col-md-4 col-lg-4">
+                        <div class="dashboard-input mt-4">
+                            <label class="label-title"> Title </label>
+                            <input asp-for="Title" type="text" class="form--control" placeholder="Title">
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="dashboard-flex-input col-sm-12 col-md-4 col-lg-4">
+                        <div class="dashboard-input mt-4">
+                            <label class="label-title"> Phone Number </label>
+                            <input asp-for="PhoneNumber" type="text" class="form--control" placeholder="Phone Number">
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="dashboard-flex-input col-sm-12 col-md-4 col-lg-4">
+                        <div class="dashboard-input mt-4">
+                            <label class="label-title"> Email </label>
+                            <input asp-for="Email" type="text" class="form--control" placeholder="Email">
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-flex-input">
+                    <div class="dashboard-input mt-4">
+                        <label class="label-title"> Content </label>
+                        <textarea asp-for="Content" type="text" class="form--control" placeholder="Content" style="height: 300px;"></textarea>
+                        <span asp-validation-for="Content" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="btn-wrapper mt-4">
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="cmn-btn btn-bg-1">Save Changes</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    var navigationPages = document.getElementById('navigationPages');
+    var about = document.getElementById('about');
+
+    navigationPages.classList.add('active');
+    about.classList.add('selected');
+</script>

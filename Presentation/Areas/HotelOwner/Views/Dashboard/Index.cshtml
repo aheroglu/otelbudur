@@ -1,0 +1,120 @@
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model IPagedList<Entity.Concrete.Booking>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/HotelOwner/Views/Shared/_HotelOwnerLayout.cshtml";
+}
+
+<div class="dashboard-promo">
+    <div class="row gy-4 justify-content-center">
+
+        @await Component.InvokeAsync("_HotelOwnerPendingReservationComponent")
+
+        @await Component.InvokeAsync("_HotelOwnerAcceptedReservationComponent")
+
+        @await Component.InvokeAsync("_HotelOwnerCancelledReservationComponent")
+
+        @await Component.InvokeAsync("_HotelOwnerCompletedReservationComponent")
+
+    </div>
+</div>
+
+<div class="dashboard-reservation">
+
+    @foreach (var x in Model)
+    {
+        <div class="single-reservation bg-white base-padding">
+            <div class="single-reservation-expandIcon"> <i class="las la-angle-down"></i> </div>
+            <div class="single-reservation-head">
+                <div class="single-reservation-flex">
+                    <div class="single-reservation-content">
+                        <h5 class="single-reservation-content-title"> Reservation ID </h5>
+                        <span class="single-reservation-content-id"> #@x.ReservationId </span>
+                    </div>
+                    <div class="single-reservation-btn">
+                        @if (x.ReservationStatus == "Pending")
+                        {
+                            <a href="javascript:void(0)" class="dash-btn btn-pending"> @x.ReservationStatus </a>
+                        }
+                        @if (x.ReservationStatus == "Accepted")
+                        {
+                            <a href="javascript:void(0)" class="dash-btn btn-accepted"> @x.ReservationStatus </a>
+                        }
+                        @if (x.ReservationStatus == "Cancelled")
+                        {
+                            <a href="javascript:void(0)" class="dash-btn btn-cancelled"> @x.ReservationStatus </a>
+                        }
+                        @if (x.ReservationStatus == "Completed")
+                        {
+                            <a href="javascript:void(0)" class="dash-btn btn-completed"> @x.ReservationStatus </a>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="single-reservation-inner">
+                <div class="single-reservation-item">
+                    <div class="single-reservation-name">
+                        <h5 class="single-reservation-name-title"> @x.User.FullName </h5>
+                    </div>
+                </div>
+                <div class="single-reservation-item">
+                    <div class="single-reservation-details">
+                        <div class="single-reservation-details-item">
+                            <span class="single-reservation-details-subtitle"> Check in </span>
+                            <h5 class="single-reservation-details-title"> @x.CheckIn.ToLongDateString() </h5>
+                        </div>
+                        <div class="single-reservation-details-item">
+                            <span class="single-reservation-details-subtitle"> Check Out </span>
+                            <h5 class="single-reservation-details-title"> @x.CheckOut.ToLongDateString() </h5>
+                        </div>
+                        <div class="single-reservation-details-item">
+                            <span class="single-reservation-details-subtitle"> Adults / Childs </span>
+                            <h5 class="single-reservation-details-title"> @x.AdultCount / @x.ChildCount </h5>
+                        </div>
+                        <div class="single-reservation-details-item">
+                            <span class="single-reservation-details-subtitle"> Booked </span>
+                            <h5 class="single-reservation-details-title"> @x.BookingTime </h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="single-reservation-item">
+                    <div class="single-reservation-flex">
+                        <div class="single-reservation-content">
+                            <h5 class="single-reservation-content-title"> Total Bill </h5>
+                            <span class="single-reservation-content-price"> @x.Total ₺ </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="single-reservation-item">
+                    <div class="single-reservation-flex">
+                        <div class="single-reservation-name">
+                            <h5 class="single-reservation-name-title"> @x.Room.Hotel.Title </h5>
+                            <p class="single-reservation-name-para"> @x.Room.Title </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="d-flex justify-content-center mt-5">
+        @Html.PagedListPager(
+        (IPagedList)Model,
+        page => Url.Action("Dashboard", "HotelOwner", new { page }),
+        new X.PagedList.Web.Common.PagedListRenderOptions
+        {
+        LiElementClasses = new string[] { "pagination-list-item-link mx-1 shadow-sm rounded" },
+        PageClasses = new string[] { "pagination-list-item" },
+        PreviousElementClass = "pagination-list-item-prev",
+        NextElementClass = "pagination-list-item-next",
+        ActiveLiElementClass = "bg-primary text-white",
+        ContainerDivClasses = new string[] { "pagination-list list-style-none" },
+        MaximumPageNumbersToDisplay=5
+        })
+    </div>
+
+    <script>
+        document.getElementById('dashboard').classList.add('active');
+    </script>

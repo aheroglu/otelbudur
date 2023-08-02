@@ -1,0 +1,222 @@
+﻿@model RoomDetailsViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<section class="hotel-details-area section-bg-2 pat-100 pab-100">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-12">
+                <div class="details-left-wrapper">
+                    <div class="details-contents bg-white radius-10">
+                        <div class="details-contents-header">
+                            @foreach (var coverImage in Model.Room)
+                            {
+                                @if (coverImage.CoverImage == "/Templates/main/assets/img/default-image.png")
+                                {
+                                    <div class="details-contents-thumb details-contents-main-thumb bg-image" style="background-image: url(@coverImage.CoverImage); background-size: cover;"></div>
+                                }
+                                else
+                                {
+                                    <div class="details-contents-thumb details-contents-main-thumb bg-image" style="background-image: url(/images/room/@coverImage.CoverImage); background-size: cover;"></div>
+                                }
+                            }
+                            <div class="details-contents-header-flex">
+                                @if (Model.RoomImages.Count > 0)
+                                {
+                                    @foreach (var roomImages in Model.RoomImages)
+                                    {
+                                        @if (roomImages.Image == "/Templates/main/assets/img/default-image.png")
+                                        {
+                                            <div class="details-contents-header-thumb">
+                                                <img src="@roomImages.Image" width="396" height="164" alt="img">
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="details-contents-header-thumb">
+                                                <img src="/images/room/@roomImages.Image" width="396" height="164" alt="img">
+                                            </div>
+                                        }
+                                    }
+                                }
+                            </div>
+                        </div>
+                        @foreach (var x in Model.Room)
+                        {
+                            <div class="hotel-view-contents">
+                                <div class="hotel-view-contents-header">
+                                    <span class="hotel-view-contents-review">
+                                        <i class="las la-star"></i> @Model.Rate <span class="hotel-view-contents-review-count">
+                                            @{
+                                                int rateCount = 0;
+                                                if (Model.RoomRatings.Count > 0)
+                                                {
+                                                    rateCount = Model.RoomRatings.Count;
+                                                }
+                                            }
+
+                                            (@rateCount)
+                                        </span>
+                                    </span>
+                                    <h3 class="hotel-view-contents-title"> @x.Title </h3>
+                                    <div class="hotel-view-contents-location mt-2 d-inline pe-2">
+                                        <span class="hotel-view-contents-location-icon"> <i class="las la-hotel"></i> </span>
+                                        <span class="hotel-view-contents-location-para"> @x.Hotel.Location.Name </span>
+                                    </div>
+                                    <div class="hotel-view-contents-location mt-2 d-inline">
+                                        <span class="hotel-view-contents-location-icon"> <i class="las la-map-marker-alt"></i> </span>
+                                        <span class="hotel-view-contents-location-para"> <a href="/Hotel/Index/@x.Hotel.Id"> @x.Hotel.Title </a> </span>
+                                    </div>
+                                </div>
+                                <div class="hotel-view-contents-middle">
+                                    <div class="hotel-view-contents-flex">
+                                        @if (x.Parking == true)
+                                        {
+                                            <div class="hotel-view-contents-icon d-flex gap-1">
+                                                <span> <i class="las la-parking"></i> </span>
+                                                <p class="hotel-view-contents-icon-title flex-fill"> Parking </p>
+                                            </div>
+                                        }
+                                        @if (x.WiFi == true)
+                                        {
+                                            <div class="hotel-view-contents-icon d-flex gap-1">
+                                                <span> <i class="las la-wifi"></i> </span>
+                                                <p class="hotel-view-contents-icon-title flex-fill"> Wifi </p>
+                                            </div>
+                                        }
+                                        @if (x.Breakfast == true)
+                                        {
+                                            <div class="hotel-view-contents-icon d-flex gap-1">
+                                                <span> <i class="las la-coffee"></i> </span>
+                                                <p class="hotel-view-contents-icon-title flex-fill"> Breakfast </p>
+                                            </div>
+                                        }
+                                        @if (x.RoomService == true)
+                                        {
+                                            <div class="hotel-view-contents-icon d-flex gap-1">
+                                                <span> <i class="las la-quidditch"></i> </span>
+                                                <p class="hotel-view-contents-icon-title flex-fill"> Room Service </p>
+                                            </div>
+                                        }
+                                        @if (x.Pool == true)
+                                        {
+                                            <div class="hotel-view-contents-icon d-flex gap-1">
+                                                <span> <i class="las la-swimming-pool"></i> </span>
+                                                <p class="hotel-view-contents-icon-title flex-fill"> Pool </p>
+                                            </div>
+                                        }
+                                        @if (x.Reception == true)
+                                        {
+                                            <div class="hotel-view-contents-icon d-flex gap-1">
+                                                <span> <i class="las la-receipt"></i> </span>
+                                                <p class="hotel-view-contents-icon-title flex-fill"> Reception </p>
+                                            </div>
+                                        }
+                                        @if (x.Gym == true)
+                                        {
+                                            <div class="hotel-view-contents-icon d-flex gap-1">
+                                                <span> <i class="las la-dumbbell"></i> </span>
+                                                <p class="hotel-view-contents-icon-title flex-fill"> Gym </p>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="hotel-view-contents-bottom">
+                                    <div class="hotel-view-contents-bottom-flex">
+                                        <div class="hotel-view-contents-bottom-contents">
+                                            <h4 class="hotel-view-contents-bottom-title"> @x.Price ₺ <sub>/Night</sub> </h4>
+                                            <p class="hotel-view-contents-bottom-para"> (@x.AdultCount Adults, @x.ChildCount Childs) </p>
+                                        </div>
+                                        <div class="btn-wrapper">
+                                            <a href="/Booking/Book" class="cmn-btn btn-bg-1 btn-small"> Reserve Now </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="details-contents-tab">
+                                <ul class="tabs details-tab details-tab-border">
+                                    <li class="active" data-tab="about"> About </li>
+                                    <li data-tab="reviews">
+                                        @{
+                                            int count = 0;
+                                            if (Model.RoomRatings.Count > 0)
+                                            {
+                                                count = Model.RoomRatings.Count;
+                                            }
+                                        }
+
+                                        Reviews (@count)
+                                    </li>
+                                </ul>
+                                <div id="about" class="tab-content-item active">
+                                    <div class="about-tab-contents">
+                                        <p class="about-tab-contents-para"> @Html.Raw(x.About) </p>
+                                    </div>
+                                </div>
+                                <div id="reviews" class="tab-content-item">
+                                    <div class="review-tab-contents">
+                                        @foreach (var reviews in Model.RoomRatings)
+                                        {
+                                            <div class="review-tab-contents-single">
+                                                <span class="">
+                                                    @if (reviews.Rate == 1)
+                                                    {
+                                                        <i class="las la-star text-warning"></i>
+                                                        <i class="las la-star"></i>
+                                                        <i class="las la-star"></i>
+                                                        <i class="las la-star"></i>
+                                                        <i class="las la-star"></i>
+                                                    }
+                                                    @if (reviews.Rate == 2)
+                                                    {
+                                                        <i class="las la-star text-warning"></i>
+                                                        <i class="las la-star text-warning"></i>
+                                                        <i class="las la-star"></i>
+                                                        <i class="las la-star"></i>
+                                                        <i class="las la-star"></i>
+                                                    }
+                                                    @if (reviews.Rate == 3)
+                                                    {
+                                                        <i class="las la-star text-warning"></i>
+                                                        <i class="las la-star text-warning"></i>
+                                                        <i class="las la-star text-warning"></i>
+                                                        <i class="las la-star"></i>
+                                                        <i class="las la-star"></i>
+                                                    }
+                                                    @if (reviews.Rate == 4)
+                                                    {
+                                                        <i class="las la-star text-warning"></i>
+                                                        <i class="las la-star text-warning"></i>
+                                                        <i class="las la-star text-warning"></i>
+                                                        <i class="las la-star text-warning"></i>
+                                                        <i class="las la-star"></i>
+                                                    }
+                                                    @if (reviews.Rate == 5)
+                                                    {
+                                                        <i class="las la-star text-warning"></i>
+                                                        <i class="las la-star text-warning"></i>
+                                                        <i class="las la-star text-warning"></i>
+                                                        <i class="las la-star text-warning"></i>
+                                                        <i class="las la-star text-warning"></i>
+                                                    }
+                                                    <span class="hotel-view-contents-review-count"> (@reviews.Rate) </span>
+                                                </span>
+                                                <div class="review-tab-contents-author mt-4">
+                                                    <h4 class="review-tab-contents-author-name"> @reviews.User.FullName </h4>
+                                                </div>
+                                                <p class="about-review-para mt-3"> @reviews.Comment </p>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

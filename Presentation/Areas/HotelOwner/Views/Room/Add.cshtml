@@ -1,0 +1,134 @@
+﻿@model Entity.Concrete.Room
+
+@{
+    ViewData["Title"] = "Add";
+    Layout = "~/Areas/HotelOwner/Views/Shared/_HotelOwnerLayout.cshtml";
+}
+
+<div class="dashboard-reservation">
+    <div class="single-reservation bg-white base-padding">
+        <h3 class="single-reservation-title text-center my-3"> Add Room </h3>
+        <div class="custom--form dashboard-form">
+            <form method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="dashboard-flex-input col-sm-12 col-md-6 col-lg-6">
+                        <div class="dashboard-input mt-4">
+                            <label class="label-title"> Title </label>
+                            <input asp-for="Title" type="text" class="form--control" placeholder="Title">
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="dashboard-flex-input col-sm-12 col-md-6 col-lg-6">
+                        <div class="dashboard-input mt-4">
+                            <label class="label-title"> Price </label>
+                            <input asp-for="Price" type="number" class="form--control" placeholder="Price">
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-flex-input">
+                    <div class="dashboard-input mt-4">
+                        <label class="label-title"> Cover Image </label>
+                        <input name="image" type="file" class="form-control" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="dashboard-flex-input col-sm-12 col-md-6 col-lg-6">
+                        <div class="dashboard-input mt-4">
+                            <label class="label-title"> Adult Count </label>
+                            <select asp-for="AdultCount" class="form--control">
+                                <option selected value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="dashboard-flex-input col-sm-12 col-md-6 col-lg-6">
+                        <div class="dashboard-input mt-4">
+                            <label class="label-title"> Child Count </label>
+                            <select asp-for="ChildCount" class="form--control">
+                                <option selected value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-flex-input">
+                    <div class="dashboard-input mt-4">
+                        <label class="label-title"> Amenities </label>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-check">
+                                    <input asp-for="Parking" class="form-check-input" type="checkbox" id="parking">
+                                    <label class="form-check-label" for="parking">
+                                        Parking
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input asp-for="WiFi" class="form-check-input" type="checkbox" id="wifi">
+                                    <label class="form-check-label" for="wifi">
+                                        WiFi
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input asp-for="Breakfast" class="form-check-input" type="checkbox" id="breakfast">
+                                    <label class="form-check-label" for="breakfast">
+                                        Breakfast
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input asp-for="RoomService" class="form-check-input" type="checkbox" id="roomservice">
+                                    <label class="form-check-label" for="roomservice">
+                                        Room Service
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-check">
+                                    <input asp-for="Reception" class="form-check-input" type="checkbox" id="reception">
+                                    <label class="form-check-label" for="reception">
+                                        Reception
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input asp-for="Pool" class="form-check-input" type="checkbox" id="pool">
+                                    <label class="form-check-label" for="pool">
+                                        Pool
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input asp-for="Gym" class="form-check-input" type="checkbox" id="gym">
+                                    <label class="form-check-label" for="gym">
+                                        Gym
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-flex-input">
+                    <div class="dashboard-input mt-4">
+                        <label class="label-title"> About </label>
+                        <textarea asp-for="About" id="textarea"></textarea>
+                        <span asp-validation-for="About" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="btn-wrapper mt-4">
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="cmn-btn btn-bg-1">Add</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="//cdn.ckeditor.com/4.19.0/full/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('textarea');
+</script>
+
+<script>
+    var rooms = document.getElementById('rooms').classList.add('active');
+</script>

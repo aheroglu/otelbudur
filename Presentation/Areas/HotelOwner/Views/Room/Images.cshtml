@@ -1,0 +1,62 @@
+﻿@model List<Entity.Concrete.RoomImage>
+
+@{
+    ViewData["Title"] = "Images";
+    Layout = "~/Areas/HotelOwner/Views/Shared/_HotelOwnerLayout.cshtml";
+}
+
+<div class="dashboard-reservation">
+    <div class="single-reservation bg-white base-padding">
+        <h3 class="single-reservation-title text-center my-3"> Images of The @ViewBag.RoomName </h3>
+        <form method="post" action="/Admin/Hotel/DeleteSelected">
+            <table class="table table-hover text-center align-middle">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Operations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var x in Model)
+                    {
+                        <tr>
+                            @if (x.Image == "/Templates/main/assets/img/default-image.png")
+                            {
+                                <td><img src="@x.Image" class="img-fluid" width="500" /></td>
+                            }
+                            else
+                            {
+                                <td><img src="/images/room/@x.Image" class="img-fluid" width="500" /></td>
+                            }
+                            <td>
+                                <a class="btn" title="Delete" onclick="deleteImage(@x.Id)"><i class="fa fa-trash text-danger"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jque ry.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+    function deleteImage(id) {
+        swal({
+            title: 'Delete Image',
+            text: 'Are you sure you want to delete this image?',
+            icon: 'warning',
+            buttons: true,
+        }).then((result) => {
+            if (result) {
+                window.location.href = "/HotelOwner/Room/DeleteImage?id=" + id;
+            }
+        })
+    }
+</script>
+
+<script>
+    var rooms = document.getElementById('rooms').classList.add('active');
+</script>

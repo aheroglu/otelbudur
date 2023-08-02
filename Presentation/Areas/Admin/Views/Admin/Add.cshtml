@@ -1,0 +1,70 @@
+﻿@model AddAdminViewModel
+
+@{
+    ViewData["Title"] = "Add";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="dashboard-reservation">
+    <div class="single-reservation bg-white base-padding">
+        <h3 class="single-reservation-title text-center"> Add Admin </h3>
+        @if (ViewBag.AlreadyRegistered != null)
+        {
+            <span class="d-block text-center text-danger">@ViewBag.AlreadyRegistered</span>
+        }
+        <div class="custom--form dashboard-form">
+            <form method="post" enctype="multipart/form-data">
+                <div class="dashboard-flex-input">
+                    <div class="dashboard-input mt-4">
+                        <label class="label-title"> Full Name </label>
+                        <input asp-for="FullName" type="text" class="form--control" placeholder="Full Name">
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="dashboard-flex-input">
+                    <div class="dashboard-input mt-4">
+                        <label class="label-title"> User Name </label>
+                        <input asp-for="UserName" type="text" class="form--control" placeholder="User Name">
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="dashboard-flex-input">
+                    <div class="dashboard-input mt-4">
+                        <label class="label-title"> Email Address </label>
+                        <input asp-for="Email" type="text" class="form--control" placeholder="Email Address">
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="dashboard-flex-input">
+                    <div class="dashboard-input mt-4">
+                        <label class="label-title"> Phone Number </label>
+                        <input asp-for="PhoneNumber" type="text" class="form--control" id="phone" placeholder="Phone Number">
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="dashboard-input mt-4">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                    <label class="label-title"> Password </label>
+                    <input asp-for="Password" type="password" class="form--control" placeholder="Password">
+                    <div class="toggle-password"> <span class="eye-icon"> </span> </div>
+                </div>
+                <div class="dashboard-input mt-4">
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    <label class="label-title"> Confirm Password </label>
+                    <input asp-for="ConfirmPassword" type="password" class="form--control" placeholder="Confirm Password">
+                    <div class="toggle-password"> <span class="eye-icon"> </span> </div>
+                </div>
+                <div class="btn-wrapper mt-4">
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="cmn-btn btn-bg-1">Create</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('users').classList.add('active');
+    document.getElementById('admin').classList.add('selected');
+</script>

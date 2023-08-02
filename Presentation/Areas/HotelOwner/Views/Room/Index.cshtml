@@ -1,0 +1,172 @@
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model IPagedList<Entity.Concrete.Room>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/HotelOwner/Views/Shared/_HotelOwnerLayout.cshtml";
+}
+
+<div class="dashboard-reservation">
+    <div class="single-reservation bg-white base-padding">
+        <h3 class="single-reservation-title text-center my-3"> Rooms </h3>
+        <div class="col mb-3">
+            <a href="/HotelOwner/Room/Add" class="btn bg-primary float-end"><i class="fa fa-plus text-white"></i></a>
+        </div>
+        <form method="post" action="/Admin/Hotel/DeleteSelected">
+            <div class="table-responsive">
+                <table class="table table-hover text-center align-middle">
+                    <thead>
+                        <tr>
+                            <th>Cover Image</th>
+                            <th>Title</th>
+                            <th>About</th>
+                            <th>Price</th>
+                            <th>Adults/Childs</th>
+                            <th style="max-width: 100px;">
+                                <div class="d-block">
+                                    <span><i class="las la-parking text-success"></i></span>: Yes
+                                    <span><i class="las la-parking text-danger"></i></span>: No
+                                </div>
+                                Amenities
+                            </th>
+                            <th>Operations</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var x in Model)
+                        {
+                            <tr>
+                                @if (x.CoverImage == "/Templates/main/assets/img/default-image.png")
+                                {
+                                    <td><img src="@x.CoverImage" width="300" /></td>
+                                }
+                                else
+                                {
+                                    <td><img src="/images/room/@x.CoverImage" width="300" /></td>
+                                }
+                                <td>@x.Title</td>
+                                <td class="text-truncate" style="max-width: 100px;">@x.About</td>
+                                <td>@x.Price ₺/Night</td>
+                                <td>@x.AdultCount/@x.ChildCount</td>
+                                <td>
+                                    @if (x.Parking)
+                                    {
+                                        <span><i class="las la-parking text-success"></i></span>
+                                    }
+                                    else
+                                    {
+                                        <span><i class="las la-parking text-danger"></i></span>
+                                    }
+                                    @if (x.WiFi)
+                                    {
+                                        <span><i class="las la-wifi text-success"></i></span>
+                                    }
+                                    else
+                                    {
+                                        <span><i class="las la-wifi text-danger"></i></span>
+                                    }
+                                    @if (x.Breakfast)
+                                    {
+                                        <span><i class="las la-coffee text-success"></i></span>
+                                    }
+                                    else
+                                    {
+                                        <span><i class="las la-coffee text-danger"></i></span>
+                                    }
+                                    @if (x.RoomService)
+                                    {
+                                        <span><i class="las la-quidditch text-success"></i></span>
+                                    }
+                                    else
+                                    {
+                                        <span><i class="las la-quidditch text-danger"></i></span>
+                                    }
+                                    @if (x.Reception)
+                                    {
+                                        <span><i class="las la-receipt text-success"></i></span>
+                                    }
+                                    else
+                                    {
+                                        <span><i class="las la-receipt text-danger"></i></span>
+                                    }
+                                    @if (x.Pool)
+                                    {
+                                        <span><i class="las la-swimming-pool text-success"></i></span>
+                                    }
+                                    else
+                                    {
+                                        <span><i class="las la-swimming-pool text-danger"></i></span>
+                                    }
+                                    @if (x.Gym)
+                                    {
+                                        <span><i class="las la-dumbbell text-success"></i></span>
+                                    }
+                                    else
+                                    {
+                                        <span><i class="las la-dumbbell text-danger"></i></span>
+                                    }
+                                </td>
+                                <td>
+                                    <a href="/HotelOwner/Room/AddImage/@x.Id" class="btn" title="Add Image"><i class="fa fa-plus text-secondary"></i></a>
+                                    <a href="/HotelOwner/Room/Images/@x.Id" class="btn" title="Images"><i class="fa fa-image text-secondary"></i></a>
+                                    <a href="/HotelOwner/Room/Edit/@x.Id" class="btn" title="Edit"><i class="fa fa-edit text-success"></i></a>
+                                    <a class="btn" title="Delete" onclick="deleteRoom(@x.Id)"><i class="fa fa-trash text-danger"></i></a>
+                                    <a href="/HotelOwner/Room/Reviews/@x.Id" class="btn" title="Reviews"><i class="fa fa-star text-warning"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </form>
+        @Html.PagedListPager(
+        (IPagedList)Model,
+        page => Url.Action("Room", "HotelOwner", new { page }),
+        new X.PagedList.Web.Common.PagedListRenderOptions
+        {
+        LiElementClasses = new string[] { "pagination-list-item-link mx-1 shadow-sm rounded" },
+        PageClasses = new string[] { "pagination-list-item" },
+        PreviousElementClass = "pagination-list-item-prev",
+        NextElementClass = "pagination-list-item-next",
+        ActiveLiElementClass = "bg-primary text-white",
+        ContainerDivClasses = new string[] { "pagination-list list-style-none" },
+        MaximumPageNumbersToDisplay=5
+        })
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jque ry.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+@if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+{
+    <script>
+        swal({
+            title: 'Success!',
+            text: '@Html.Raw(System.Web.HttpUtility.HtmlDecode(TempData["SuccessMessage"].ToString()))',
+            icon: 'success',
+            timer: 3000,
+            buttons: false,
+        })
+    </script>
+}
+
+<script>
+    function deleteRoom(id) {
+        swal({
+            title: 'Delete Room',
+            text: 'Are you sure you want to delete this room?',
+            icon: 'warning',
+            buttons: true,
+        }).then((result) => {
+            if (result) {
+                window.location.href = "/HotelOwner/Room/Delete?id=" + id;
+            }
+        });
+    }
+</script>
+
+<script>
+    var rooms = document.getElementById('rooms').classList.add('active');
+</script>

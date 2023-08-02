@@ -1,0 +1,63 @@
+﻿@model List<Entity.Concrete.FAQ>
+@{
+    //DataAccess.Concrete.Context context = new DataAccess.Concrete.Context();
+    Entity.Concrete.Question questionModel = new Entity.Concrete.Question();
+}
+
+@{
+    int count = 0;
+}
+
+<section class="question-area pat-50 pab-50">
+    <div class="container">
+        <div class="section-title center-text">
+            <h2 class="title"> Frequently Asked Question </h2>
+            <div class="section-title-line"> </div>
+        </div>
+        <div class="row g-4 mt-4">
+            <div class="col-xl-8 col-lg-7">
+                <div class="faq-wrapper">
+                    <div class="faq-contents">
+                        @foreach (var x in Model)
+                        {
+                            count++;
+
+                            <div class="faq-item @(count == 1 ? "active open" : "") wow fadeInLeft" data-wow-delay=".1s">
+                                <h3 class="faq-title">
+                                    @x.Title <span class="invisible">@count</span>
+                                </h3>
+                                <div class="faq-panel">
+                                    <p class="faq-para">
+                                        @x.Description
+                                    </p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-5">
+                <div class="faq-question faq-question-border radius-10 sticky-top">
+                    <h3 class="faq-question-title"> Still got questions? </h3>
+                    <div class="faq-question-form custom-form mat-20">
+                        <form method="post" asp-action="SendQuestion" asp-controller="Home">
+                            <div class="single-input">
+                                <label class="label-title"> Name </label>
+                                <input name="FullName" type="text" class="form--control radius-10" placeholder="Type Name">
+                            </div>
+                            <div class="single-input">
+                                <label class="label-title"> Email </label>
+                                <input name="Email" type="text" class="form--control radius-10" placeholder="Type Email">
+                            </div>
+                            <div class="single-input">
+                                <label class="label-title"> Questions </label>
+                                <textarea name="Details" class="form--control form-message radius-10" placeholder="Type Your Questons..."></textarea>
+                            </div>
+                            <button class="submit-btn w-100 radius-10" type="submit"> Submit </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

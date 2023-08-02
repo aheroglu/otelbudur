@@ -1,0 +1,141 @@
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model IPagedList<Entity.Concrete.Hotel>
+
+@{
+    ViewData["Title"] = "Hotels";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="dashboard-reservation">
+    <div class="single-reservation bg-white base-padding">
+        <h3 class="single-reservation-title text-center my-3"> Hotels in @ViewBag.Location </h3>
+        <form method="post" action="/Admin/Hotel/DeleteSelected">
+            <table class="table table-hover text-center">
+                <thead>
+                    <tr>
+                        <th class="d-block">
+                            <input type="submit" id="submit" class="btn btn-danger invisible" value="Delete Selected One" onclick="return confirm('Are you sure you want to delete selected ones? This operation cannot be undone!')" />
+                            <input type="checkbox" id="selectAll" class="d-block mx-auto mt-2" onclick="selectAllCheckboxes()">
+                        </th>
+                        <th>Cover Image</th>
+                        <th>Owner</th>
+                        <th>Title</th>
+                        <th>Details</th>
+                        <th>Operations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var x in Model)
+                    {
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="selectedHotels" value="@x.Id" onclick="check()" onchange="check()">
+                            </td>
+                            <td><img src="@x.CoverImage" width="150" /></td>
+                            <td>@x.User.FullName</td>
+                            <td>@x.Title</td>
+                            <td class="text-truncate" style="max-width: 150px;">@x.Details</td>
+                            <td>
+                                <a href="/Admin/Hotel/Rooms/@x.Id" class="btn" title="Users"><i class="fa fa-person-shelter text-warning"></i></a>
+                                <a href="/Admin/Hotel/Edit/@x.Id" class="btn" title="Edit"><i class="fa fa-edit text-success"></i></a>
+                                <a class="btn" title="Delete" onclick="deleteRole(@x.Id)"><i class="fa fa-trash text-danger"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </form>
+        <div class="d-flex justify-content-center mt-5">
+            @Html.PagedListPager(
+            (IPagedList)Model,
+            page => Url.Action("Location", "Admin", new { page }),
+            new X.PagedList.Web.Common.PagedListRenderOptions
+            {
+            LiElementClasses = new string[] { "pagination-list-item-link mx-1 shadow-sm rounded" },
+            PageClasses = new string[] { "pagination-list-item" },
+            PreviousElementClass = "pagination-list-item-prev",
+            NextElementClass = "pagination-list-item-next",
+            ActiveLiElementClass = "bg-primary text-white",
+            ContainerDivClasses = new string[] { "pagination-list list-style-none" },
+            MaximumPageNumbersToDisplay=5
+            })
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jque ry.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+@if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+{
+    <script>
+        swal({
+            title: 'Success!',
+            text: '@Html.Raw(System.Web.HttpUtility.HtmlDecode(TempData["SuccessMessage"].ToString()))',
+            icon: 'success',
+            timer: 3000,
+            buttons: false,
+        })
+    </script>
+}
+
+<script>
+    function deleteRole(id) {
+        swal({
+            title: 'Delete Hotel',
+            text: 'Are you sure you want to delete this role?',
+            icon: 'warning',
+            buttons: true,
+        }).then((result) => {
+            if (result) {
+                window.location.href = '/Admin/Role/Delete?id=' + id;
+            }
+        });
+    }
+</script>
+
+<script>
+    var hotelOperations = document.getElementById('hotelOperations');
+    var hotels = document.getElementById('hotels');
+
+    hotelOperations.classList.add('active');
+    hotels.classList.add('selected');
+</script>
+
+<script>
+    function selectAllCheckboxes() {
+        var checkboxes = document.getElementsByName('selectedHotels');
+        var selectAllCheckbox = document.getElementById('selectAll');
+
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = selectAllCheckbox.checked;
+        }
+
+        updateSubmitButtonVisibility();
+    }
+
+    function check() {
+        updateSubmitButtonVisibility();
+    }
+
+    function updateSubmitButtonVisibility() {
+        var checkboxes = document.getElementsByName('selectedHotels');
+        var submitButton = document.getElementById('submit');
+
+        var isChecked = false;
+
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                isChecked = true;
+                break;
+            }
+        }
+
+        if (isChecked) {
+            submitButton.classList.remove("invisible");
+        } else {
+            submitButton.classList.add("invisible");
+        }
+    }
+</script>

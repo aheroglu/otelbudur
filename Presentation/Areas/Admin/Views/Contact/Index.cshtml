@@ -1,0 +1,94 @@
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model IPagedList<Entity.Concrete.Contact>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="dashboard-reservation">
+    <div class="single-reservation bg-white base-padding">
+        <h3 class="single-reservation-title text-center my-3"> Messages </h3>
+        <div class="table-responsive">
+            <table class="table table-hover text-center align-middle">
+                <thead>
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                        <th>Message</th>
+                        <th>Status</th>
+                        <th>Operations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var x in Model)
+                    {
+                        <tr>
+                            <td>@x.FirstName @x.LastName</td>
+                            <td>@x.Email</td>
+                            <td>@x.PhoneNumber</td>
+                            @if (x.BeenRead)
+                            {
+                                <td><span class="badge text-white bg-success">Answered</span></td>
+                            }
+                            else
+                            {
+                                <td><span class="badge text-white bg-danger">Unanswered</span></td>
+                            }
+                            <td class="text-truncate" style="max-width: 150px;">@x.Message</td>
+                            <td>
+                                <a href="/Admin/Contact/Details/@x.Id" class="btn" title="Details"><i class="fa fa-circle-info text-warning"></i></a>
+                                <a href="/Admin/Contact/Answer/@x.Id" class="btn" title="Answer"><i class="fa fa-reply text-success"></i></a>
+                                @if (x.BeenRead)
+                                {
+                                    <a href="/Admin/Contact/SeeAnswer/@x.Id" class="btn" title="See Answer"><i class="fa fa-message text-secondary"></i></a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-center mt-5">
+            @Html.PagedListPager(
+            (IPagedList)Model,
+            page => Url.Action("Contact", "Admin", new { page }),
+            new X.PagedList.Web.Common.PagedListRenderOptions
+            {
+            LiElementClasses = new string[] { "pagination-list-item-link mx-1 shadow-sm rounded" },
+            PageClasses = new string[] { "pagination-list-item" },
+            PreviousElementClass = "pagination-list-item-prev",
+            NextElementClass = "pagination-list-item-next",
+            ActiveLiElementClass = "bg-primary text-white",
+            ContainerDivClasses = new string[] { "pagination-list list-style-none" },
+            MaximumPageNumbersToDisplay=5
+            })
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jque ry.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+@if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+{
+    <script>
+        swal({
+            title: 'Success!',
+            text: '@Html.Raw(System.Web.HttpUtility.HtmlDecode(TempData["SuccessMessage"].ToString()))',
+            icon: 'success',
+            timer: 3000,
+            buttons: false,
+        })
+    </script>
+}
+
+<script>
+    var messages = document.getElementById('messages');
+    var contact = document.getElementById('contact');
+
+    messages.classList.add('active');
+    contact.classList.add('selected');
+</script>

@@ -1,0 +1,42 @@
+﻿@model Entity.Concrete.Partner
+
+@{
+    ViewData["Title"] = "Add";
+    Layout = "~/Areas/Staff/Views/Shared/_StaffLayout.cshtml";
+}
+
+<div class="dashboard-reservation">
+    <div class="single-reservation bg-white base-padding">
+        <h3 class="single-reservation-title"> Edit Profile </h3>
+        <div class="custom--form dashboard-form">
+            <form method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="dashboard-flex-input col-6">
+                        <div class="dashboard-input mt-4">
+                            <label class="label-title"> Destination Url </label>
+                            <input asp-for="DestinationUrl" type="text" class="form--control" placeholder="Destination Url">
+                            <span asp-validation-for="DestinationUrl" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="dashboard-flex-input col-6">
+                        <div class="dashboard-input mt-4">
+                            <label class="label-title"> Profile Photo </label>
+                            <input name="image" type="file" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-wrapper mt-4">
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="cmn-btn btn-bg-1">Add</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.getElementById('siteSettings').classList.add('active');
+    document.getElementById('partners').classList.add('selected');
+</script>

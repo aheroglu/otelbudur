@@ -1,0 +1,16 @@
+﻿@model List<Entity.Concrete.About>
+
+@foreach (var x in Model)
+{
+    <section class="about-area pat-100 pab-50 mt-5">
+        <div class="container">
+            <div class="section-title center-text">
+                <h2 class="title"> @x.Title </h2>
+                <div class="section-title-line"> </div>
+                <p class="section-para">
+                    @x.Content
+                </p>
+            </div>
+        </div>
+    </section>
+}
