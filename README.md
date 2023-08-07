@@ -1,9 +1,8 @@
-# OtelBudur
+# OtelBudur ![Static Badge](https://img.shields.io/badge/version-1.0-1DA1F2)
 
 ![Screenshot 2023-08-02 235825](https://github.com/ahmetyazbulursun/otelbudur/assets/88562237/7ce10119-6c88-41fe-939d-39688b319100)
 
-- ![Static Badge](https://img.shields.io/badge/v1.0-1DA1F2)
-- ![Static Badge](https://img.shields.io/badge/EN-0388fc)
+![Static Badge](https://img.shields.io/badge/EN-0388fc)
 
 ## Developers
 
@@ -63,13 +62,8 @@ About the issues you are curious about aheroglu@outlook.com you can contact me a
 
 
 
-
+![Static Badge](https://img.shields.io/badge/TR-ff1e00)
 # OtelBudur
-- ![Static Badge](https://img.shields.io/badge/v1.0-1DA1F2)
-- ![Static Badge](https://img.shields.io/badge/TR-ff1e00)
-## Demo
-
-![Demo](images/octocat.png)
 
 ## Geliştiriciler
 
